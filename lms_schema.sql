@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `lms`.`library_branch` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `address` VARCHAR(45) NOT NULL,
-  `hours_of_operation` VARCHAR(45) NOT NULL,
+  `hours_of_operation` VARCHAR(100) NOT NULL,
   `phone_number` VARCHAR(45) NOT NULL,
   `capacity` INT NULL,
   `email` VARCHAR(45) NULL,
