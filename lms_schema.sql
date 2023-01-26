@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `lms`.`publisher` (
   `establishment_date` DATE NULL,
   `isbn_prefix` VARCHAR(5) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `isbn_prefix_UNIQUE` (`isbn_prefix` ASC) VISIBLE)
+  INDEX `isbn_prefix` (`isbn_prefix` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
