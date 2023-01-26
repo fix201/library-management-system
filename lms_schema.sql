@@ -10,18 +10,12 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema lms
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `lms` ;
-
--- -----------------------------------------------------
--- Schema lms
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `lms` DEFAULT CHARACTER SET utf8 ;
 USE `lms` ;
 
 -- -----------------------------------------------------
 -- Table `lms`.`publisher`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lms`.`publisher` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`publisher` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -40,7 +34,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `lms`.`book`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lms`.`book` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`book` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -66,7 +59,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `lms`.`genre`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lms`.`genre` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`genre` (
   `genre_id` INT NOT NULL AUTO_INCREMENT,
@@ -78,7 +70,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `lms`.`book_genre`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lms`.`book_genre` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`book_genre` (
   `book_id` INT NOT NULL,
@@ -102,7 +93,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `lms`.`author`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lms`.`author` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`author` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -119,7 +109,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `lms`.`book_author`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lms`.`book_author` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`book_author` (
   `book_id` INT NOT NULL,
@@ -143,7 +132,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `lms`.`member`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lms`.`member` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`member` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -159,7 +147,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `lms`.`library_branch`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lms`.`library_branch` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`library_branch` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -176,7 +163,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `lms`.`librarian`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lms`.`librarian` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`librarian` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -201,7 +187,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `lms`.`book_copies`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lms`.`book_copies` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`book_copies` (
   `library_branch_id` INT NOT NULL,
@@ -226,7 +211,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `lms`.`loan_record`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lms`.`loan_record` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`loan_record` (
   `member_id` INT NOT NULL AUTO_INCREMENT,
