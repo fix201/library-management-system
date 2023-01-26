@@ -26,11 +26,11 @@ DROP TABLE IF EXISTS `lms`.`publisher` ;
 CREATE TABLE IF NOT EXISTS `lms`.`publisher` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `location` VARCHAR(45) NULL,
-  `social_media` VARCHAR(45) NULL,
+  `location` VARCHAR(60) NULL,
+  `phone_number` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
   `type` VARCHAR(45) NOT NULL,
   `establishment_date` DATE NULL,
-  `contact_info` VARCHAR(45) NULL,
   `isbn_prefix` VARCHAR(5) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `isbn_prefix_UNIQUE` (`isbn_prefix` ASC) VISIBLE)
@@ -108,9 +108,9 @@ CREATE TABLE IF NOT EXISTS `lms`.`author` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `gender` VARCHAR(45) NULL,
-  `social_media` VARCHAR(45) NULL,
-  `dob` VARCHAR(45) NULL,
-  `contact_info` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `dob` DATE NULL,
+  `address` VARCHAR(60) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -149,8 +149,9 @@ CREATE TABLE IF NOT EXISTS `lms`.`member` (
   `name` VARCHAR(45) NOT NULL,
   `occupation` VARCHAR(45) NULL,
   `gender` VARCHAR(45) NULL,
-  `contact_info` VARCHAR(45) NOT NULL,
-  `address` VARCHAR(45) NOT NULL,
+  `phone_number` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(60) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -163,7 +164,7 @@ DROP TABLE IF EXISTS `lms`.`library_branch` ;
 CREATE TABLE IF NOT EXISTS `lms`.`library_branch` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `address` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(60) NOT NULL,
   `hours_of_operation` VARCHAR(100) NOT NULL,
   `phone_number` VARCHAR(45) NOT NULL,
   `capacity` INT NULL,
