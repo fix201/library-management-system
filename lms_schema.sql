@@ -15,7 +15,7 @@ DROP SCHEMA IF EXISTS `lms` ;
 -- -----------------------------------------------------
 -- Schema lms
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `lms` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `lms` DEFAULT CHARACTER SET utf8mb4 ;
 USE `lms` ;
 
 -- -----------------------------------------------------
