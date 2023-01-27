@@ -110,7 +110,6 @@ CREATE TABLE IF NOT EXISTS `lms`.`author` (
   `gender` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
   `dob` DATE NULL,
-  `address` VARCHAR(60) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
