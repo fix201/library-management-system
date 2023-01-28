@@ -19,7 +19,7 @@ INSERT INTO lms.book (title,isbn,publisher_id,edition,total_pages,format,`langua
 INSERT INTO lms.book (title,isbn,publisher_id,edition,total_pages,format,`language`,publication_date) VALUES ('Hunter x Hunter','978-4-16-324446-7',14,2,1890,'pdf','English','2007-08-02');
 INSERT INTO lms.book (title,isbn,publisher_id,edition,total_pages,format,`language`,publication_date) VALUES ('Fear: Trump in the White House','980-5-22-748809-3',15,2,4454,'paperback','English','2016-04-19');
 INSERT INTO lms.book (title,isbn,publisher_id,edition,total_pages,format,`language`,publication_date) VALUES ('Sefarad','982-3-13-804871-2',16,5,6262,'paperback','Arabic','2010-10-02');
-INSERT INTO lms.book (title,isbn,publisher_id,edition,total_pages,format,`language`,publication_date) VALUES ('My Thoughts Exactly','983-3-90-465423-0',17,4,3646,'large_print','English','2011-05-01');
+INSERT INTO lms.book (title,isbn,publisher_id,edition,total_pages,format,`language`,publication_date) VALUES ('My Thoughts Exactly','983-3-90-465423-0',18,4,3646,'large_print','English','2011-05-01');
 INSERT INTO lms.book (title,isbn,publisher_id,edition,total_pages,format,`language`,publication_date) VALUES ('The Presidency and the Political System','980-0-84-931638-0',18,1,2250,'paperback','English','2015-12-10');
 INSERT INTO lms.book (title,isbn,publisher_id,edition,total_pages,format,`language`,publication_date) VALUES ('Kurze Antworten auf Fragen','978-3-81-251599-1',19,4,3714,'pdf','German','2017-07-26');
 INSERT INTO lms.book (title,isbn,publisher_id,edition,total_pages,format,`language`,publication_date) VALUES ('Little Miss Inventor','983-3-59-860108-6',20,7,6665,'ebook','English','2019-12-30');

@@ -26,14 +26,16 @@ DROP TABLE IF EXISTS `lms`.`publisher` ;
 CREATE TABLE IF NOT EXISTS `lms`.`publisher` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `location` VARCHAR(60) NULL,
+  `address` VARCHAR(60) NULL,
   `phone_number` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
   `type` VARCHAR(45) NOT NULL,
   `establishment_date` DATE NULL,
   `isbn_prefix` VARCHAR(5) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `isbn_prefix` (`isbn_prefix` ASC) VISIBLE)
+  UNIQUE INDEX `phone_number_UNIQUE` (`phone_number` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -58,8 +60,8 @@ CREATE TABLE IF NOT EXISTS `lms`.`book` (
   CONSTRAINT `fk_book_publisher`
     FOREIGN KEY (`publisher_id`)
     REFERENCES `lms`.`publisher` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -89,13 +91,13 @@ CREATE TABLE IF NOT EXISTS `lms`.`book_genre` (
   CONSTRAINT `fk_book_has_genre_book1`
     FOREIGN KEY (`book_id`)
     REFERENCES `lms`.`book` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_book_has_genre_genre1`
     FOREIGN KEY (`genre_id`)
     REFERENCES `lms`.`genre` (`genre_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -110,7 +112,8 @@ CREATE TABLE IF NOT EXISTS `lms`.`author` (
   `gender` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
   `dob` DATE NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -128,13 +131,13 @@ CREATE TABLE IF NOT EXISTS `lms`.`book_author` (
   CONSTRAINT `fk_book_has_author_book1`
     FOREIGN KEY (`book_id`)
     REFERENCES `lms`.`book` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_book_has_author_author1`
     FOREIGN KEY (`author_id`)
     REFERENCES `lms`.`author` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -148,10 +151,12 @@ CREATE TABLE IF NOT EXISTS `lms`.`user` (
   `name` VARCHAR(45) NOT NULL,
   `occupation` VARCHAR(45) NULL,
   `gender` VARCHAR(45) NULL,
-  `phone_number` VARCHAR(45) NOT NULL,
+  `phone` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `address` VARCHAR(60) NOT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -173,6 +178,19 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `lms`.`lms_access_level`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `lms`.`lms_access_level` ;
+
+CREATE TABLE IF NOT EXISTS `lms`.`lms_access_level` (
+  `access_level` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `description` VARCHAR(200) NULL,
+  PRIMARY KEY (`access_level`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `lms`.`librarian`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `lms`.`librarian` ;
@@ -182,18 +200,24 @@ CREATE TABLE IF NOT EXISTS `lms`.`librarian` (
   `name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `phone` VARCHAR(45) NOT NULL,
-  `address` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(60) NOT NULL,
   `ssn` VARCHAR(45) NOT NULL,
-  `emergency_contact` VARCHAR(45) NOT NULL,
-  `access_level` VARCHAR(45) NOT NULL,
+  `emergency_contact` VARCHAR(200) NOT NULL,
   `library_branch_id` INT NOT NULL,
+  `access_level` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_librarian_library_branch1_idx` (`library_branch_id` ASC) VISIBLE,
+  INDEX `fk_librarian_lms_access_level1_idx` (`access_level` ASC) VISIBLE,
   CONSTRAINT `fk_librarian_library_branch1`
     FOREIGN KEY (`library_branch_id`)
     REFERENCES `lms`.`library_branch` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_librarian_lms_access_level1`
+    FOREIGN KEY (`access_level`)
+    REFERENCES `lms`.`lms_access_level` (`access_level`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -212,13 +236,13 @@ CREATE TABLE IF NOT EXISTS `lms`.`book_copies` (
   CONSTRAINT `fk_library_branch_has_book_library_branch1`
     FOREIGN KEY (`library_branch_id`)
     REFERENCES `lms`.`library_branch` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_library_branch_has_book_book1`
     FOREIGN KEY (`book_id`)
     REFERENCES `lms`.`book` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -228,7 +252,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `lms`.`loan_record` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`loan_record` (
-  `user_id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
   `library_branch_id` INT NOT NULL,
   `book_id` INT NOT NULL,
   `loan_date` DATETIME NOT NULL,
@@ -240,18 +264,18 @@ CREATE TABLE IF NOT EXISTS `lms`.`loan_record` (
   CONSTRAINT `fk_loan_record_member1`
     FOREIGN KEY (`user_id`)
     REFERENCES `lms`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_loan_record_library_branch1`
     FOREIGN KEY (`library_branch_id`)
     REFERENCES `lms`.`library_branch` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_loan_record_book1`
     FOREIGN KEY (`book_id`)
     REFERENCES `lms`.`book` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
