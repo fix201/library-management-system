@@ -1,5 +1,8 @@
 package com.harrisburgu.database;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,10 +17,13 @@ public class SetupDB {
     
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "password";
+    static final String PASS = "6618";
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		//STEP 2: Register JDBC driver
+
+        Logger logger = LoggerFactory.getLogger(SetupDB.class);
+
+        //STEP 2: Register JDBC driver
 		
 		System.out.println("Hello World");
 		Class.forName(JDBC_DRIVER);
@@ -29,7 +35,7 @@ public class SetupDB {
 		
         Statement stmt =  conn.createStatement();
         
-        String sqlStatement = "select * from genre";
+        String sqlStatement = "select* from genre";
         
         System.out.println("Selecting all the books");
         ResultSet rs = stmt.executeQuery(sqlStatement);
