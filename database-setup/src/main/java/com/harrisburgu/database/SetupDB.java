@@ -17,7 +17,7 @@ public class SetupDB {
     
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "6618";
+    static final String PASS = "";
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
