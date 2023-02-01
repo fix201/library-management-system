@@ -8,7 +8,6 @@
 		<version>3.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-
 	<groupId>com.harrisburgu</groupId>
 	<artifactId>lms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -23,4 +22,22 @@
     <module>lms-core</module>
   </modules>
 
+	<packaging>pom</packaging>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+				<version>3.0.2</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>3.0.2</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
