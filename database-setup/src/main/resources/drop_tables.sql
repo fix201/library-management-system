@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS `lms`.`book_copies` ;
+DROP TABLE IF EXISTS `lms`.`loan_record` ;
+DROP TABLE IF EXISTS `lms`.`librarian` ;
+DROP TABLE IF EXISTS `lms`.`user` ;
+DROP TABLE IF EXISTS `lms`.`book_genre` ;
+DROP TABLE IF EXISTS `lms`.`book_author` ;
+DROP TABLE IF EXISTS `lms`.`book` ;
+DROP TABLE IF EXISTS `lms`.`genre` ;
+DROP TABLE IF EXISTS `lms`.`author` ;
+DROP TABLE IF EXISTS `lms`.`library_branch` ;
+DROP TABLE IF EXISTS `lms`.`lms_access_level` ;
+DROP TABLE IF EXISTS `lms`.`publisher` ;
