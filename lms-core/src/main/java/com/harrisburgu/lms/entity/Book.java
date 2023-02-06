@@ -1,6 +1,6 @@
 package com.harrisburgu.lms.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Book {
@@ -12,7 +12,19 @@ public class Book {
     private Integer total_pages;
     private String format;
     private String language;
-    private Date publication;
+    private LocalDateTime publication;
+
+    public Book(Integer id, String title, String isbn, Integer publisher_id, Integer edition, Integer total_pages, String format, String language, LocalDateTime publication) {
+        this.id = id;
+        this.title = title;
+        this.isbn = isbn;
+        this.publisher_id = publisher_id;
+        this.edition = edition;
+        this.total_pages = total_pages;
+        this.format = format;
+        this.language = language;
+        this.publication = publication;
+    }
 
     public Integer getId() {
         return id;
@@ -78,11 +90,11 @@ public class Book {
         this.language = language;
     }
 
-    public Date getPublication() {
+    public LocalDateTime getPublication() {
         return publication;
     }
 
-    public void setPublication(Date publication) {
+    public void setPublication(LocalDateTime publication) {
         this.publication = publication;
     }
 

@@ -6,6 +6,11 @@ public class Genre {
     private Integer genre;
     private String genre_name;
 
+    public Genre(Integer genre, String genre_name) {
+        this.genre = genre;
+        this.genre_name = genre_name;
+    }
+
     public Integer getGenre() {
         return genre;
     }
