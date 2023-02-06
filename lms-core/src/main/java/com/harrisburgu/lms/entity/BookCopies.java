@@ -7,6 +7,12 @@ public class BookCopies {
     private Integer book_id;
     private Integer no_of_copies;
 
+    public BookCopies(Integer library_branch_id, Integer book_id, Integer no_of_copies) {
+        this.library_branch_id = library_branch_id;
+        this.book_id = book_id;
+        this.no_of_copies = no_of_copies;
+    }
+
     public Integer getLibrary_branch_id() {
         return library_branch_id;
     }

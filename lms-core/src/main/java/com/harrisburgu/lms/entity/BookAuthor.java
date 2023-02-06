@@ -6,6 +6,11 @@ public class BookAuthor {
     private Integer book_id;
     private Integer author_id;
 
+    public BookAuthor(Integer book_id, Integer author_id) {
+        this.book_id = book_id;
+        this.author_id = author_id;
+    }
+
     public Integer getBook_id() {
         return book_id;
     }
