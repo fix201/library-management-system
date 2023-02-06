@@ -7,21 +7,21 @@ public class Librarian {
     private String address;
     private String ssn;
     private String emergencyContact;
-    private Integer libraryBranchID;
+    private Integer libraryBranchId;
     private Integer accessLevel;
 
     public Librarian() {
 
     }
 
-    public Librarian(Integer id, String name, String phoneNumber, String address, String ssn, String emergencyContact, Integer libraryBranchID, Integer accessLevel) {
+    public Librarian(Integer id, String name, String phoneNumber, String address, String ssn, String emergencyContact, Integer libraryBranchId, Integer accessLevel) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.ssn = ssn;
         this.emergencyContact = emergencyContact;
-        this.libraryBranchID = libraryBranchID;
+        this.libraryBranchId = libraryBranchId;
         this.accessLevel = accessLevel;
     }
 
@@ -49,8 +49,8 @@ public class Librarian {
         return emergencyContact;
     }
 
-    public Integer getLibraryBranchID() {
-        return libraryBranchID;
+    public Integer getLibraryBranchId() {
+        return libraryBranchId;
     }
 
     public Integer getAccessLevel() {
@@ -81,8 +81,8 @@ public class Librarian {
         this.emergencyContact = emergencyContact;
     }
 
-    public void setLibraryBranchID(Integer libraryBranchID) {
-        this.libraryBranchID = libraryBranchID;
+    public void setLibraryBranchId(Integer libraryBranchId) {
+        this.libraryBranchId = libraryBranchId;
     }
 
     public void setAccessLevel(Integer accessLevel) {
@@ -98,7 +98,7 @@ public class Librarian {
                 ", address='" + address + '\'' +
                 ", ssn='" + ssn + '\'' +
                 ", emergencyContact='" + emergencyContact + '\'' +
-                ", libraryBranchID=" + libraryBranchID +
+                ", libraryBranchID=" + libraryBranchId +
                 ", accessLevel=" + accessLevel +
                 '}';
     }
@@ -116,7 +116,7 @@ public class Librarian {
         if (!address.equals(librarian.address)) return false;
         if (!ssn.equals(librarian.ssn)) return false;
         if (!emergencyContact.equals(librarian.emergencyContact)) return false;
-        if (!libraryBranchID.equals(librarian.libraryBranchID)) return false;
+        if (!libraryBranchId.equals(librarian.libraryBranchId)) return false;
         return accessLevel.equals(librarian.accessLevel);
     }
 
@@ -128,7 +128,7 @@ public class Librarian {
         result = 31 * result + address.hashCode();
         result = 31 * result + ssn.hashCode();
         result = 31 * result + emergencyContact.hashCode();
-        result = 31 * result + libraryBranchID.hashCode();
+        result = 31 * result + libraryBranchId.hashCode();
         result = 31 * result + accessLevel.hashCode();
         return result;
     }

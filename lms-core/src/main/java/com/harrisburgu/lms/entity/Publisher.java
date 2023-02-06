@@ -1,5 +1,6 @@
 package com.harrisburgu.lms.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -10,13 +11,13 @@ public class Publisher {
     private String phoneNumber;
     private String email;
     private String type;
-    private Date establishmentDate;
+    private LocalDate establishmentDate;
     private String isbnPrefix;
 
     public Publisher() {
     }
 
-    public Publisher(Integer id, String name, String address, String phoneNumber, String email, String type, Date establishmentDate, String isbnPrefix) {
+    public Publisher(Integer id, String name, String address, String phoneNumber, String email, String type, LocalDate establishmentDate, String isbnPrefix) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -75,11 +76,11 @@ public class Publisher {
         this.type = type;
     }
 
-    public Date getEstablishmentDate() {
+    public LocalDate getEstablishmentDate() {
         return establishmentDate;
     }
 
-    public void setEstablishmentDate(Date establishmentDate) {
+    public void setEstablishmentDate(LocalDate establishmentDate) {
         this.establishmentDate = establishmentDate;
     }
 
