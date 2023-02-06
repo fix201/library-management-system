@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class LoanRecord {
-    private Integer userID;
+    private Integer userId;
     private Integer libraryBranchId;
-    private Integer bookID;
+    private Integer bookId;
     private LocalDateTime loanDate;
     private LocalDateTime dueDate;
     private LocalDateTime dateIn;
@@ -14,20 +14,20 @@ public class LoanRecord {
     public LoanRecord() {
     }
 
-    public LoanRecord(Integer userID, Integer libraryBranchId, Integer bookID, LocalDateTime loanDate, LocalDateTime dueDate, LocalDateTime dateIn) {
-        this.userID = userID;
+    public LoanRecord(Integer userId, Integer libraryBranchId, Integer bookId, LocalDateTime loanDate, LocalDateTime dueDate, LocalDateTime dateIn) {
+        this.userId = userId;
         this.libraryBranchId = libraryBranchId;
-        this.bookID = bookID;
+        this.bookId = bookId;
         this.loanDate = loanDate;
         this.dueDate = dueDate;
         this.dateIn = dateIn;
     }
-    public Integer getUserID() {
-        return userID;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getLibraryBranchId() {
@@ -38,12 +38,12 @@ public class LoanRecord {
         this.libraryBranchId = libraryBranchId;
     }
 
-    public Integer getBookID() {
-        return bookID;
+    public Integer getBookId() {
+        return bookId;
     }
 
-    public void setBookID(Integer bookID) {
-        this.bookID = bookID;
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
     public LocalDateTime getLoanDate() {
@@ -77,9 +77,9 @@ public class LoanRecord {
 
         LoanRecord that = (LoanRecord) o;
 
-        if (!userID.equals(that.userID)) return false;
+        if (!userId.equals(that.userId)) return false;
         if (!libraryBranchId.equals(that.libraryBranchId)) return false;
-        if (!bookID.equals(that.bookID)) return false;
+        if (!bookId.equals(that.bookId)) return false;
         if (!loanDate.equals(that.loanDate)) return false;
         if (!dueDate.equals(that.dueDate)) return false;
         return Objects.equals(dateIn, that.dateIn);
@@ -87,9 +87,9 @@ public class LoanRecord {
 
     @Override
     public int hashCode() {
-        int result = userID.hashCode();
+        int result = userId.hashCode();
         result = 31 * result + libraryBranchId.hashCode();
-        result = 31 * result + bookID.hashCode();
+        result = 31 * result + bookId.hashCode();
         result = 31 * result + loanDate.hashCode();
         result = 31 * result + dueDate.hashCode();
         result = 31 * result + (dateIn != null ? dateIn.hashCode() : 0);
