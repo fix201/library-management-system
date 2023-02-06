@@ -7,23 +7,14 @@ public class Book {
     private Integer id;
     private String title;
     private String isbn;
-    private Integer publisher_id;
+    private Integer publisherId;
     private Integer edition;
-    private Integer total_pages;
+    private Integer totalPages;
     private String format;
     private String language;
-    private LocalDateTime publication;
+    private LocalDateTime publicationDate;
 
-    public Book(Integer id, String title, String isbn, Integer publisher_id, Integer edition, Integer total_pages, String format, String language, LocalDateTime publication) {
-        this.id = id;
-        this.title = title;
-        this.isbn = isbn;
-        this.publisher_id = publisher_id;
-        this.edition = edition;
-        this.total_pages = total_pages;
-        this.format = format;
-        this.language = language;
-        this.publication = publication;
+    public Book() {
     }
 
     public Integer getId() {
@@ -50,12 +41,12 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public Integer getPublisher_id() {
-        return publisher_id;
+    public Integer getPublisherId() {
+        return publisherId;
     }
 
-    public void setPublisher_id(Integer publisher_id) {
-        this.publisher_id = publisher_id;
+    public void setPublisherId(Integer publisherId) {
+        this.publisherId = publisherId;
     }
 
     public Integer getEdition() {
@@ -66,12 +57,12 @@ public class Book {
         this.edition = edition;
     }
 
-    public Integer getTotal_pages() {
-        return total_pages;
+    public Integer getTotalPages() {
+        return totalPages;
     }
 
-    public void setTotal_pages(Integer total_pages) {
-        this.total_pages = total_pages;
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
     }
 
     public String getFormat() {
@@ -90,12 +81,12 @@ public class Book {
         this.language = language;
     }
 
-    public LocalDateTime getPublication() {
-        return publication;
+    public LocalDateTime getPublicationDate() {
+        return publicationDate;
     }
 
-    public void setPublication(LocalDateTime publication) {
-        this.publication = publication;
+    public void setPublicationDate(LocalDateTime publicationDate) {
+        this.publicationDate = publicationDate;
     }
 
     @Override
@@ -103,12 +94,12 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id.equals(book.id) && title.equals(book.title) && isbn.equals(book.isbn) && publisher_id.equals(book.publisher_id) && Objects.equals(edition, book.edition) && total_pages.equals(book.total_pages) && Objects.equals(format, book.format) && Objects.equals(language, book.language) && Objects.equals(publication, book.publication);
+        return id.equals(book.id) && title.equals(book.title) && isbn.equals(book.isbn) && publisherId.equals(book.publisherId) && Objects.equals(edition, book.edition) && totalPages.equals(book.totalPages) && Objects.equals(format, book.format) && Objects.equals(language, book.language) && Objects.equals(publicationDate, book.publicationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, isbn, publisher_id, edition, total_pages, format, language, publication);
+        return Objects.hash(id, title, isbn, publisherId, edition, totalPages, format, language, publicationDate);
     }
 
     @Override
@@ -117,12 +108,12 @@ public class Book {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
-                ", publisher_id=" + publisher_id +
+                ", publisherId=" + publisherId +
                 ", edition=" + edition +
-                ", total_pages=" + total_pages +
+                ", totalPages=" + totalPages +
                 ", format='" + format + '\'' +
                 ", language='" + language + '\'' +
-                ", publication=" + publication +
+                ", publicationDate=" + publicationDate +
                 '}';
     }
 }

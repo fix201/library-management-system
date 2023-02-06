@@ -3,28 +3,26 @@ package com.harrisburgu.lms.entity;
 import java.util.Objects;
 
 public class BookAuthor {
-    private Integer book_id;
-    private Integer author_id;
+    private Integer bookId;
+    private Integer authorId;
 
-    public BookAuthor(Integer book_id, Integer author_id) {
-        this.book_id = book_id;
-        this.author_id = author_id;
+    public BookAuthor() {
     }
 
-    public Integer getBook_id() {
-        return book_id;
+    public Integer getBookId() {
+        return bookId;
     }
 
-    public void setBook_id(Integer book_id) {
-        this.book_id = book_id;
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
-    public Integer getAuthor_id() {
-        return author_id;
+    public Integer getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor_id(Integer author_id) {
-        this.author_id = author_id;
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
     }
 
     @Override
@@ -32,19 +30,19 @@ public class BookAuthor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookAuthor that = (BookAuthor) o;
-        return book_id.equals(that.book_id) && author_id.equals(that.author_id);
+        return bookId.equals(that.bookId) && authorId.equals(that.authorId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(book_id, author_id);
+        return Objects.hash(bookId, authorId);
     }
 
     @Override
     public String toString() {
         return "BookAuthor{" +
-                "book_id=" + book_id +
-                ", author_id=" + author_id +
+                "bookId=" + bookId +
+                ", authorId=" + authorId +
                 '}';
     }
 }

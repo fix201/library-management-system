@@ -4,11 +4,14 @@ import java.util.Objects;
 
 public class Genre {
     private Integer genre;
-    private String genre_name;
+    private String genreName;
 
-    public Genre(Integer genre, String genre_name) {
+    public Genre() {
+    }
+
+    public Genre(Integer genre, String genreName) {
         this.genre = genre;
-        this.genre_name = genre_name;
+        this.genreName = genreName;
     }
 
     public Integer getGenre() {
@@ -19,12 +22,12 @@ public class Genre {
         this.genre = genre;
     }
 
-    public String getGenre_name() {
-        return genre_name;
+    public String getGenreName() {
+        return genreName;
     }
 
-    public void setGenre_name(String genre_name) {
-        this.genre_name = genre_name;
+    public void setGenreName(String genreName) {
+        this.genreName = genreName;
     }
 
     @Override
@@ -32,19 +35,19 @@ public class Genre {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Genre genre1 = (Genre) o;
-        return genre.equals(genre1.genre) && genre_name.equals(genre1.genre_name);
+        return genre.equals(genre1.genre) && genreName.equals(genre1.genreName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(genre, genre_name);
+        return Objects.hash(genre, genreName);
     }
 
     @Override
     public String toString() {
         return "Genre{" +
                 "genre=" + genre +
-                ", genre_name='" + genre_name + '\'' +
+                ", genreName='" + genreName + '\'' +
                 '}';
     }
 }
