@@ -3,28 +3,31 @@ package com.harrisburgu.lms.entity;
 import java.util.Objects;
 
 public class BookGenre {
-    private Integer book_id;
-    private Integer genre_id;
+    private Integer bookId;
+    private Integer genreId;
 
-    public BookGenre(Integer book_id, Integer genre_id) {
-        this.book_id = book_id;
-        this.genre_id = genre_id;
+    public BookGenre() {
     }
 
-    public Integer getBook_id() {
-        return book_id;
+    public BookGenre(Integer bookId, Integer genreId) {
+        this.bookId = bookId;
+        this.genreId = genreId;
     }
 
-    public void setBook_id(Integer book_id) {
-        this.book_id = book_id;
+    public Integer getBookId() {
+        return bookId;
     }
 
-    public Integer getGenre_id() {
-        return genre_id;
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
-    public void setGenre_id(Integer genre_id) {
-        this.genre_id = genre_id;
+    public Integer getGenreId() {
+        return genreId;
+    }
+
+    public void setGenreId(Integer genreId) {
+        this.genreId = genreId;
     }
 
     @Override
@@ -32,19 +35,19 @@ public class BookGenre {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookGenre bookGenre = (BookGenre) o;
-        return book_id.equals(bookGenre.book_id) && genre_id.equals(bookGenre.genre_id);
+        return bookId.equals(bookGenre.bookId) && genreId.equals(bookGenre.genreId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(book_id, genre_id);
+        return Objects.hash(bookId, genreId);
     }
 
     @Override
     public String toString() {
         return "BookGenre{" +
-                "book_id=" + book_id +
-                ", genre_id=" + genre_id +
+                "bookId=" + bookId +
+                ", genreId=" + genreId +
                 '}';
     }
 }
