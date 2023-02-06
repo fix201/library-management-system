@@ -17,6 +17,18 @@ public class Book {
     public Book() {
     }
 
+    public Book(Integer id, String title, String isbn, Integer publisherId, Integer edition, Integer totalPages, String format, String language, LocalDateTime publicationDate) {
+        this.id = id;
+        this.title = title;
+        this.isbn = isbn;
+        this.publisherId = publisherId;
+        this.edition = edition;
+        this.totalPages = totalPages;
+        this.format = format;
+        this.language = language;
+        this.publicationDate = publicationDate;
+    }
+
     public Integer getId() {
         return id;
     }
