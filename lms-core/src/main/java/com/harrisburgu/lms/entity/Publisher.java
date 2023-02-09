@@ -1,10 +1,18 @@
 package com.harrisburgu.lms.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
+@Entity
 public class Publisher {
+
+    @Id
+    @GeneratedValue
     private Integer id;
     private String name;
     private String address;

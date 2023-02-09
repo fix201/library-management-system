@@ -1,8 +1,16 @@
 package com.harrisburgu.lms.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.util.Objects;
 
+@Entity
 public class LibraryBranch {
+
+    @Id
+    @GeneratedValue
     private Integer id;
     private String name;
     private String address;

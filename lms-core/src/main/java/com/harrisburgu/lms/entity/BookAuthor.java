@@ -1,8 +1,16 @@
 package com.harrisburgu.lms.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.util.Objects;
 
+@Entity
 public class BookAuthor {
+    
+    @Id
+    @GeneratedValue
     private Integer bookId;
     private Integer authorId;
 

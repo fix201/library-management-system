@@ -1,6 +1,14 @@
 package com.harrisburgu.lms.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
 public class Librarian {
+
+    @Id
+    @GeneratedValue
     private Integer id;
     private String  name;
     private String phoneNumber;

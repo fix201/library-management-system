@@ -1,16 +1,23 @@
 package com.harrisburgu.lms.entity;
 
-public class AccessLevel {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
+public class LmsAccessLevel {
 	
-	private Long id;
+	@Id
+	@GeneratedValue
+	private Long access_level;
 	private String description;
 	
 	public Long getId() {
-		return id;
+		return access_level;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(Long access_level) {
+		this.access_level = access_level;
 	}
 	
 	public String getDescription() {
@@ -26,15 +33,15 @@ public class AccessLevel {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		AccessLevel that = (AccessLevel) o;
+		LmsAccessLevel that = (LmsAccessLevel) o;
 
-		if (!id.equals(that.id)) return false;
+		if (!access_level.equals(that.access_level)) return false;
 		return description.equals(that.description);
 	}
 
 	@Override
 	public int hashCode() {
-		int result = id.hashCode();
+		int result = access_level.hashCode();
 		result = 31 * result + description.hashCode();
 		return result;
 	}
@@ -42,7 +49,7 @@ public class AccessLevel {
 	@Override
 	public String toString() {
 		return "AccessLevel{" +
-				"id=" + id +
+				"access_level=" + access_level +
 				", description='" + description + '\'' +
 				'}';
 	}

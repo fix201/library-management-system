@@ -1,15 +1,41 @@
 package com.harrisburgu.lms.entity;
 
-import java.util.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+
+import java.time.LocalDate;
 import java.util.Objects;
 
+@Entity
 public class Author {
 	
+	@Id
+	@GeneratedValue
 	private Long id;
 	private String name;
 	private Character gender;
 	private String email;
-	private Date dob;
+	private LocalDate dob;
+
+	public Author() {
+	}
+
+	public Author(String name, Character gender, String email, LocalDate dob) {
+		this.name = name;
+		this.gender = gender;
+		this.email = email;
+		this.dob = dob;
+	}
+
+	public Author(Long id, String name, Character gender, String email, LocalDate dob) {
+		this.id = id;
+		this.name = name;
+		this.gender = gender;
+		this.email = email;
+		this.dob = dob;
+	}
 
 	public Long getId() {
 		return id;
@@ -43,11 +69,11 @@ public class Author {
 		this.email = email;
 	}
 
-	public Date getDob() {
+	public LocalDate getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
 
@@ -83,6 +109,6 @@ public class Author {
 				", gender=" + gender +
 				", email='" + email + '\'' +
 				", dob=" + dob +
-				'}';
+				'}' + '\n';
 	}
 }

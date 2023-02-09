@@ -1,9 +1,17 @@
 package com.harrisburgu.lms.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
 public class LoanRecord {
+
+    @Id
+    @GeneratedValue
     private Integer userId;
     private Integer libraryBranchId;
     private Integer bookId;

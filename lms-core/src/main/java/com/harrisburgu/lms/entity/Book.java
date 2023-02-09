@@ -1,9 +1,17 @@
 package com.harrisburgu.lms.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
 public class Book {
+
+    @Id
+    @GeneratedValue
     private Integer id;
     private String title;
     private String isbn;
