@@ -55,7 +55,6 @@ public abstract class BaseService {
 	}
 	
 	public Author getAuthorById(Long authorId) {
-		bookAuthorRepo.findAll();
 		Author author = (Author) getObjectFromOptional(authorRepo.findById(authorId));
 		LOGGER.info("Author with id {}: {}", authorId, author);
 		return author;
