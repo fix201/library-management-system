@@ -1,4 +1,9 @@
 package com.harrisburgu.lms.services;
 
-public class LibrarianService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class LibrarianService extends BaseService {
+	
+	// 
 }

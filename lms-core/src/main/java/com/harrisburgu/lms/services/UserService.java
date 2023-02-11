@@ -1,4 +1,7 @@
 package com.harrisburgu.lms.services;
 
-public class UserService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService extends BaseService {
 }
