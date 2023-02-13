@@ -64,8 +64,8 @@ public abstract class BaseService {
 	}
 
 	/**
-	 * Get author by the author id
-	 * @param authorId
+	 * Get author by the
+	 * @param authorId author id
 	 * @return {@link com.harrisburgu.lms.entity.Author} object
 	 */
 	public Author getAuthorById(Long authorId) {
