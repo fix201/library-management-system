@@ -103,4 +103,16 @@ public class LoanRecord {
         result = 31 * result + (dateIn != null ? dateIn.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "LoanRecord{" +
+                "userId=" + userId +
+                ", libraryBranchId=" + libraryBranchId +
+                ", bookId=" + bookId +
+                ", loanDate=" + loanDate +
+                ", dueDate=" + dueDate +
+                ", dateIn=" + dateIn +
+                '}';
+    }
 }
