@@ -14,7 +14,6 @@ public class User {
     private Integer id;
     private String name;
     private String occupation;
-    private String genre;
     private String phone;
     private String email;
     private String address;
@@ -22,11 +21,10 @@ public class User {
     public User() {
     }
 
-    public User(Integer id, String name, String occupation, String genre, String phone, String email, String address) {
+    public User(Integer id, String name, String occupation, String phone, String email, String address) {
         this.id = id;
         this.name = name;
         this.occupation = occupation;
-        this.genre = genre;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -54,14 +52,6 @@ public class User {
 
     public void setOccupation(String occupation) {
         this.occupation = occupation;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public String getPhone() {
@@ -94,7 +84,6 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", occupation='" + occupation + '\'' +
-                ", genre='" + genre + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
@@ -111,7 +100,6 @@ public class User {
         if (!id.equals(user.id)) return false;
         if (!name.equals(user.name)) return false;
         if (!Objects.equals(occupation, user.occupation)) return false;
-        if (!Objects.equals(genre, user.genre)) return false;
         if (!phone.equals(user.phone)) return false;
         if (!email.equals(user.email)) return false;
         return address.equals(user.address);
@@ -122,7 +110,6 @@ public class User {
         int result = id.hashCode();
         result = 31 * result + name.hashCode();
         result = 31 * result + (occupation != null ? occupation.hashCode() : 0);
-        result = 31 * result + (genre != null ? genre.hashCode() : 0);
         result = 31 * result + phone.hashCode();
         result = 31 * result + email.hashCode();
         result = 31 * result + address.hashCode();

@@ -11,23 +11,23 @@ public class Genre {
 
     @Id
     @GeneratedValue
-    private Integer genre;
+    private Integer genreId;
     private String genreName;
 
     public Genre() {
     }
 
-    public Genre(Integer genre, String genreName) {
-        this.genre = genre;
+    public Genre(Integer genreId, String genreName) {
+        this.genreId = genreId;
         this.genreName = genreName;
     }
 
     public Integer getGenre() {
-        return genre;
+        return genreId;
     }
 
-    public void setGenre(Integer genre) {
-        this.genre = genre;
+    public void setGenre(Integer genreId) {
+        this.genreId = genreId;
     }
 
     public String getGenreName() {
@@ -43,18 +43,18 @@ public class Genre {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Genre genre1 = (Genre) o;
-        return genre.equals(genre1.genre) && genreName.equals(genre1.genreName);
+        return genreId.equals(genre1.genreId) && genreName.equals(genre1.genreName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(genre, genreName);
+        return Objects.hash(genreId, genreName);
     }
 
     @Override
     public String toString() {
         return "Genre{" +
-                "genre=" + genre +
+                "genreId=" + genreId +
                 ", genreName='" + genreName + '\'' +
                 '}';
     }
