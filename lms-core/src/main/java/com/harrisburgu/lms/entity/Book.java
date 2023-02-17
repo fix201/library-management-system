@@ -12,10 +12,10 @@ public class Book {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
     private String title;
     private String isbn;
-    private Integer publisherId;
+    private Long publisherId;
     private Integer edition;
     private Integer totalPages;
     private String format;
@@ -25,7 +25,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(Integer id, String title, String isbn, Integer publisherId, Integer edition, Integer totalPages, String format, String language, LocalDateTime publicationDate) {
+    public Book(Long id, String title, String isbn, Long publisherId, Integer edition, Integer totalPages, String format, String language, LocalDateTime publicationDate) {
         this.id = id;
         this.title = title;
         this.isbn = isbn;
@@ -37,11 +37,11 @@ public class Book {
         this.publicationDate = publicationDate;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,11 +61,11 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public Integer getPublisherId() {
+    public Long getPublisherId() {
         return publisherId;
     }
 
-    public void setPublisherId(Integer publisherId) {
+    public void setPublisherId(Long publisherId) {
         this.publisherId = publisherId;
     }
 
