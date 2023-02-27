@@ -22,12 +22,12 @@ public class Librarian {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String  name;
     private String phoneNumber;
     private String address;
     private String ssn;
     private String emergencyContact;
-    private Integer libraryBranchId;
-    private Integer accessLevel;
+    private Long libraryBranchId;
+    private Long accessLevel;
 }

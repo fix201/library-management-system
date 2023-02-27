@@ -22,7 +22,7 @@ public class BookCopies {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer libraryBranchId;
-    private Integer bookId;
+    private Long libraryBranchId;
+    private Long bookId;
     private Integer noOfCopies;
 }

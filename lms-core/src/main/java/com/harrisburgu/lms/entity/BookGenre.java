@@ -22,6 +22,6 @@ public class BookGenre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer bookId;
-    private Integer genreId;
+    private Long bookId;
+    private Long genreId;
 }

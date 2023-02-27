@@ -24,9 +24,9 @@ public class LoanRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
-    private Integer libraryBranchId;
-    private Integer bookId;
+    private Long userId;
+    private Long libraryBranchId;
+    private Long bookId;
     private LocalDateTime loanDate;
     private LocalDateTime dueDate;
     private LocalDateTime dateIn;
