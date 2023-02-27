@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -227,5 +228,27 @@ public class AdminService extends BaseService {
 		}
 		
 		return false;
+	}
+
+	public LoanRecord overrideBookLoan(LoanRecord loanRecord) {
+		LoanRecord tempLoanRecord = null;
+		
+		if (loanRecord.getDueDate() == null) {
+			loanRecord.setDueDate(loanRecord.getLoanDate().plusDays(8));
+		}
+		
+		if(loanRecord.getBookId() != null && loanRecord.getBookId() != null 
+				&& loanRecord.getUserId() != null) {
+			tempLoanRecord = loanRecordRepo.findByLoanRecordKeys(loanRecord.getUserId(), loanRecord.getLibraryBranchId(), 
+					loanRecord.getBookId(), loanRecord.getLoanDate());
+			logger.info("Current Loan Record: {}", tempLoanRecord);
+			CopyUtil.copyProperties(loanRecord, tempLoanRecord);
+			logger.info("Updated Loan Record: {}", tempLoanRecord);
+			tempLoanRecord = loanRecordRepo.save(tempLoanRecord);
+		} else {
+			logger.error("One or more of '{}' is null", loanRecord);
+		}
+		
+		return tempLoanRecord;
 	}
 }

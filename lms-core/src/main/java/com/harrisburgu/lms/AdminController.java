@@ -148,8 +148,8 @@ public class AdminController {
 	}
 
 	@PostMapping("/override-loan")
-	public void overrideBookLoan(LoanRecord loanRecord) {
-		
+	public void overrideBookLoan(@RequestBody LoanRecord loanRecord) {
+		adminService.overrideBookLoan(loanRecord);
 	}
 
 	@DeleteMapping("book")
