@@ -56,7 +56,7 @@ public abstract class BaseService {
 	@Autowired
 	protected UserRepository userRepo;
 
-	protected final Logger LOGGER = LoggerFactory.getLogger(BaseService.class);
+	private final Logger logger = LoggerFactory.getLogger(BaseService.class);
 
 	/**
 	 * Get a declared {@link com.harrisburgu.lms.entity Entity} from {@link java.util.Optional}
@@ -74,50 +74,50 @@ public abstract class BaseService {
 	 */
 	public Author getAuthorById(Long authorId) {
 		Author author = (Author) getObjectFromOptional(authorRepo.findById(authorId));
-		LOGGER.info("Author with id {}: {}", authorId, author);
+		logger.info("Author with id {}: {}", authorId, author);
 		return author;
 	}
 
 	/**
 	 * Get authors by the author name
 	 * @param authorName
-	 * @return List of {@link com.harrisburgu.lms.entity.Author} objects with same or similar name
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.Author} objects with same or similar name
 	 */
 	public List<Author> getAuthorsByName(String authorName) {
 		List<Author> authors = authorRepo.findAuthorByName(authorName);
-		LOGGER.info("Authors with name {}: {}", authorName, authors);
+		logger.info("Authors with name {}: {}", authorName, authors);
 		return authors;
 	}
 
 	/**
 	 * Get all authors
-	 * @return List of all {@link com.harrisburgu.lms.entity.Author} objects
+	 * @return {@link List} of all {@link com.harrisburgu.lms.entity.Author} objects
 	 */
 	public List<Author> getAllAuthors() {
 		List<Author> authors = authorRepo.findAll();
-		LOGGER.info("Authors: {}", authors);
+		logger.info("Authors: {}", authors);
 		return authors;
 	}
 
 	/**
 	 * Get book by the author id
 	 * @param authorId
-	 * @return List of {@link com.harrisburgu.lms.entity.Book} objects
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.Book} objects
 	 */
 	public List<Book> getBooksByAuthorId(Long authorId) {
 		List<Book> books =  bookRepo.findBookByAuthorId(authorId);
-		LOGGER.info("Books: {}", books);
+		logger.info("Books: {}", books);
 		return books;
 	}
 
 	/**
 	 * Get book by the genre id
 	 * @param genreId
-	 * @return List of {@link com.harrisburgu.lms.entity.Book} objects
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.Book} objects
 	 */
 	public List<Book> getBooksByGenreId(Long genreId) {
 		List<Book> books =  bookRepo.findBookByGenreId(genreId);
-		LOGGER.info("Books: {}", books);
+		logger.info("Books: {}", books);
 		return books;
 	}
 
@@ -128,28 +128,28 @@ public abstract class BaseService {
 	 */
 	public Book getBookById(Long bookId) {
 		Book book = (Book) getObjectFromOptional(bookRepo.findById(bookId));
-		LOGGER.info("Book with id {}: {}", bookId, book);
+		logger.info("Book with id {}: {}", bookId, book);
 		return book;
 	}
 
 	/**
 	 * Get book by the book title
 	 * @param title
-	 * @return List of {@link com.harrisburgu.lms.entity.Book} objects with same or similar title
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.Book} objects with same or similar title
 	 */
 	public List<Book> getBooksByTitle(String title) {
 		List<Book> books = bookRepo.findBookByTitle(title);
-		LOGGER.info("Books with name {}: {}", title, books);
+		logger.info("Books with name {}: {}", title, books);
 		return books;
 	}
 
 	/**
 	 * Get all books
-	 * @return List of {@link com.harrisburgu.lms.entity.Book} objects
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.Book} objects
 	 */
 	public List<Book> getAllBooks() {
 		List<Book> books = bookRepo.findAll();
-		LOGGER.info("Books: {}", books);
+		logger.info("Books: {}", books);
 		return books;
 	}
 
@@ -160,28 +160,28 @@ public abstract class BaseService {
 	 */
 	public Genre getGenreById(Long genreId) {
 		Genre genre = (Genre) getObjectFromOptional(bookRepo.findById(genreId));
-		LOGGER.info("Genre with id {}: {}", genreId, genre);
+		logger.info("Genre with id {}: {}", genreId, genre);
 		return genre;
 	}
 
 	/**
 	 * Get genre by the genre name
 	 * @param genreName
-	 * @return List of {@link com.harrisburgu.lms.entity.Genre} objects with same or similar name
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.Genre} objects with same or similar name
 	 */
 	public List<Genre> getGenresByName(String genreName) {
 		List<Genre> genres = genreRepo.findByGenreNameContaining(genreName);
-		LOGGER.info("Genres: {}", genres);
+		logger.info("Genres: {}", genres);
 		return genres;
 	}
 
 	/**
 	 * Get all genres
-	 * @return List of {@link com.harrisburgu.lms.entity.Genre} objects
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.Genre} objects
 	 */
 	public List<Genre> getAllGenres() {
 		List<Genre> genres = genreRepo.findAll();
-		LOGGER.info("Genres: {}", genres);
+		logger.info("Genres: {}", genres);
 		return genres;
 	}
 
@@ -192,28 +192,28 @@ public abstract class BaseService {
 	 */
 	public Publisher getPublisherById(Long publisherId) {
 		Publisher publisher = (Publisher) getObjectFromOptional(publisherRepo.findById(publisherId));
-		LOGGER.info("Publisher with id {}: {}", publisherId, publisher);
+		logger.info("Publisher with id {}: {}", publisherId, publisher);
 		return publisher;
 	}
 
 	/**
 	 * Get publisher by the publisher name
 	 * @param publisherName
-	 * @return List of {@link com.harrisburgu.lms.entity.Publisher} objects with same or similar name
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.Publisher} objects with same or similar name
 	 */
 	public List<Publisher> getPublishersByName(String publisherName) {
 		List<Publisher> publishers = publisherRepo.findByNameContaining(publisherName);
-		LOGGER.info("Publishers: {}", publishers);
+		logger.info("Publishers: {}", publishers);
 		return publishers;
 	}
 
 	/**
 	 * Get all publishers
-	 * @return List of {@link com.harrisburgu.lms.entity.Publisher} objects
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.Publisher} objects
 	 */
 	public List<Publisher> getAllPublishers() {
 		List<Publisher> publishers = publisherRepo.findAll();
-		LOGGER.info("Publisher: {}", publishers);
+		logger.info("Publisher: {}", publishers);
 		return publishers;
 	}
 
@@ -224,28 +224,28 @@ public abstract class BaseService {
 	 */
 	public User getUserById(Long userId) {
 		User user = (User) getObjectFromOptional(userRepo.findById(userId));
-		LOGGER.info("User with id {}: {}", userId, user);
+		logger.info("User with id {}: {}", userId, user);
 		return user;
 	}
 
 	/**
 	 * Get user by the user's name
 	 * @param userName
-	 * @return List of {@link com.harrisburgu.lms.entity.User} objects with same or similar name
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.User} objects with same or similar name
 	 */
 	public List<User> getUsersByName(String userName) {
 		List<User> users = userRepo.findByNameContaining(userName);
-		LOGGER.info("Users: {}", users);
+		logger.info("Users: {}", users);
 		return users;
 	}
 
 	/**
 	 * Get all users
-	 * @return List of {@link com.harrisburgu.lms.entity.User} objects
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.User} objects
 	 */
 	public List<User> getAllUsers() {
 		List<User> users = userRepo.findAll();
-		LOGGER.info("Users: {}", users);
+		logger.info("Users: {}", users);
 		return users;
 	}
 
@@ -256,51 +256,72 @@ public abstract class BaseService {
 	 */
 	public Librarian getLibrarianById(Long librarianId) {
 		Librarian librarian = (Librarian) getObjectFromOptional(librarianRepo.findById(librarianId));
-		LOGGER.info("Librarian with id {}: {}", librarianId, librarian);
+		logger.info("Librarian with id {}: {}", librarianId, librarian);
 		return librarian;
 	}
 
 	/**
 	 * Get user by the user's name
 	 * @param librarianName
-	 * @return List of {@link com.harrisburgu.lms.entity.User} objects with same or similar name
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.User} objects with same or similar name
 	 */
 	public List<Librarian> getLibrariansByName(String librarianName) {
 		List<Librarian> librarians = librarianRepo.findByNameContaining(librarianName);
-		LOGGER.info("Librarians: {}", librarians);
+		logger.info("Librarians: {}", librarians);
 		return librarians;
 	}
 
 	/**
 	 * Get all librarians
-	 * @return List of {@link com.harrisburgu.lms.entity.Librarian} objects
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.Librarian} objects
 	 */
 	public List<Librarian> getAllLibrarians() {
 		List<Librarian> librarians = librarianRepo.findAll();
-		LOGGER.info("Librarians: {}", librarians);
+		logger.info("Librarians: {}", librarians);
 		return librarians;
+	}
+
+	/**
+	 * Get all Library Branches
+	 * @return {@link List} of {@link LibraryBranch} objects
+	 */
+	public List<LibraryBranch> getAllBranches(){
+		List<LibraryBranch> branches = libraryBranchRepo.findAll();
+		logger.info("Library Branches: {}", branches);
+		return branches;
+	}
+
+	/**
+	 * Get library branch by the library branch id
+	 * @param branchId
+	 * @return {@link com.harrisburgu.lms.entity.LibraryBranch} object
+	 */
+	public LibraryBranch getBranchById(Long branchId) {
+		LibraryBranch libraryBranch = (LibraryBranch) getObjectFromOptional(libraryBranchRepo.findById(branchId));
+		logger.info("Librarian with id {}: {}", branchId, libraryBranch);
+		return libraryBranch;
 	}
 
 	/**
 	 * Get user's loan records by their user id
 	 * @param userId
-	 * @return List of {@link com.harrisburgu.lms.entity.User} objects
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.LoanRecord} objects
 	 */
 	public List<LoanRecord> getLoanRecordsForUser(Long userId){
 		List<LoanRecord> records = loanRecordRepo.findByUserId(userId);
 		User user = (User) getObjectFromOptional(userRepo.findById(userId));
-		LOGGER.info("Loan Records for user {}: {}", user.getName(), records);
+		logger.info("Loan Records for user {}: {}", user.getName(), records);
 		return records;
 	}
 
 	/**
 	 * Get user's loan records by the branch id
 	 * @param branchId
-	 * @return List of {@link com.harrisburgu.lms.entity.LoanRecord} objects
+	 * @return {@link List} of {@link com.harrisburgu.lms.entity.LoanRecord} objects
 	 */
 	public List<LoanRecord> getLoanRecordsForBranch(Long branchId){
 		List<LoanRecord> records = loanRecordRepo.findByLibraryBranchId(branchId);
-		LOGGER.info("Loan Records for library branch {}: {}", branchId, records);
+		logger.info("Loan Records for library branch {}: {}", branchId, records);
 		return records;
 	}
 
@@ -312,7 +333,7 @@ public abstract class BaseService {
 	 */
 	public Integer getBookCopiesForBranch(Long branchId, Long bookId){
 		BookCopies records = bookCopiesRepo.findByLibraryBranchIdAndBookId(branchId, bookId);
-		LOGGER.info("Library Branch with id {} has {} Copies of Book id {}", branchId, records.getNoOfCopies(), bookId);
+		logger.info("Library Branch with id {} has {} Copies of Book id {}", branchId, records.getNoOfCopies(), bookId);
 		return records.getNoOfCopies();
 	}
 }
