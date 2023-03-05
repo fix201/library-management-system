@@ -9,9 +9,16 @@ import com.harrisburgu.lms.entity.LoanRecord;
 import com.harrisburgu.lms.entity.Publisher;
 import com.harrisburgu.lms.entity.User;
 import com.harrisburgu.lms.services.AdminService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,143 +26,202 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/admin")
 public class AdminController {
-	
-	AdminService adminService;
+
+	private final Logger logger = LoggerFactory.getLogger(AdminController.class);
+	private AdminService adminService;
 	
 	@Autowired
 	public void setAdminService(AdminService adminService) {
 		this.adminService = adminService;
 	}
 	
-	@RequestMapping(value = {"", "/"}, method = RequestMethod.GET, produces = "application/json")
+	@GetMapping("/authors")
 	public List<Author> getAllAuthors(){
 		return adminService.getAllAuthors();
 	}
 	
-	@RequestMapping(value = {"/book"}, method = RequestMethod.GET, produces = "application/json")
-	public List<Book> getBooksByAuthorId() {
-		return adminService.getBooksByAuthorId(31L);
+	@GetMapping("/authors/{id}")
+	public Author getAuthor(@PathVariable("id") Long id) {
+		return adminService.getAuthorById(id);
+	}
+	
+	@GetMapping("/book-author/{id}")
+	public List<Book> getBooksByAuthorId(@PathVariable("id") Long id) {
+		return adminService.getBooksByAuthorId(id);
 	}
 
-	@RequestMapping(value = "/books", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping("/books")
 	public List<Book> getAllBooks(){
-		return adminService.getBooksByTitle("becoming");
+		return adminService.getAllBooks();
 	}
 
-	@RequestMapping(value = "/genre", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping("/books/{id}")
+	public Book getBook(@PathVariable("id") Long id) {
+		return adminService.getBookById(id);
+	}
+
+	@GetMapping("/genres")
 	public List<Genre> getAllGenres(){
-		return adminService.getGenresByName("Biography");
+		return adminService.getAllGenres();
 	}
 
-	@RequestMapping(value = "/publisher", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping("/genres/{id}")
+	public Book getGenre(@PathVariable("id") Long id) {
+		return adminService.getBookById(id);
+	}
+
+	@GetMapping("/book-genre/{id}")
+	public List<Book> getBooksByGenreId(@PathVariable("id") Long id) {
+		return adminService.getBooksByGenreId(id);
+	}
+
+	@GetMapping("/publishers")
 	public List<Publisher> getAllPublishers(){
-		return adminService.getPublishersByName("cengage");
+		return adminService.getAllPublishers();
 	}
 
-	@RequestMapping(value = "/loan-records", method = RequestMethod.GET, produces = "application/json")
-	public List<LoanRecord> getLoanRecordsByUser(){
-		return adminService.getLoanRecordsForUser(1L);
+	@GetMapping("/publishers/{id}")
+	public Publisher getPublisher(@PathVariable("id") Long id) {
+		return adminService.getPublisherById(id);
 	}
 
-	@RequestMapping(value = "/book-copies", method = RequestMethod.GET, produces = "application/json")
-	public Integer getBookCopiesForBranch(){
-		return adminService.getBookCopiesForBranch(1L,1L);
-	}
-	
-	public Book createBook(Book book) {
-		return book;
+	@GetMapping("/librarians")
+	public List<Librarian> getAllLibrarians(){
+		return adminService.getAllLibrarians();
 	}
 
-	public Author createAuthor(Author author) {
-		return author;
+	@GetMapping("/librarians/{id}")
+	public Librarian getLibrarian(@PathVariable("id") Long id){
+		return adminService.getLibrarianById(id);
 	}
 
-	public Genre createGenre(Genre genre) {
-		return genre;
+	@GetMapping("/library-branches")
+	public List<LibraryBranch> getAllBranches(){
+		return adminService.getAllBranches();
 	}
 
-	public Publisher createPublisher(Publisher publisher) {
-		return publisher;
+	@GetMapping("/library-branches/{id}")
+	public LibraryBranch getBranch(@PathVariable("id") Long id){
+		return adminService.getBranchById(id);
 	}
 
-	public Librarian createLibrarian(Librarian librarian) {
-		return librarian;
+	@GetMapping("/users")
+	public List<User> getAllUsers(){
+		return adminService.getAllUsers();
 	}
 
-	public LibraryBranch createLibraryBranch(LibraryBranch libraryBranch) {
-		return libraryBranch;
+	@GetMapping("/users/{id}")
+	public User getUser(@PathVariable("id") Long id){
+		return adminService.getUserById(id);
 	}
 
-	public User createUser(User user) {
-		return user;
-	}
-
-	public void addBookToBranch(Long bookId, Long branchId, Integer noOfCopies) {
-
+	@GetMapping("/loan-records")
+	public List<LoanRecord> getAllLoanRecords(){
+		return adminService.getAllLoanRecords();
 	}
 	
-	public void updateBook(Book book) {
-		
+	@GetMapping("/loan-records-user/{id}")
+	public List<LoanRecord> getLoanRecordsByUser(@PathVariable("id") Long id){
+		return adminService.getLoanRecordsForUser(id);
 	}
 
-	public void updateAuthor(Book book) {
-
+	@GetMapping("/loan-records-branch/{id}")
+	public List<LoanRecord> getLoanRecordsByBranch(@PathVariable("id") Long id){
+		return adminService.getLoanRecordsForBranch(id);
 	}
 
-	public void updateGenre(Book book) {
-
-	}
-
-	public void updatePublisher(Book book) {
-
-	}
-
-	public void updateBookCopiesForBranch(Long bookId, Long branchId, Integer noOfCopies) {
-		
+	@GetMapping("/book-copies")
+	public Integer getBookCopiesForBranch(@RequestParam Long branchId, @RequestParam Long bookId){
+		return adminService.getBookCopiesForBranch(branchId,bookId);
 	}
 	
-	public void updateLibrarianBranch(Long librarianId, Long branchId) {
-		
+	@PostMapping("/book")
+	public Book addOrUpdateBook(@RequestBody Book book) {
+		return adminService.saveBook(book);
 	}
 
-	public void overrideBookLoan(LoanRecord loanRecord) {
-		
+	@PostMapping("/author")
+	public Author addOrUpdateAuthor(@RequestBody Author author) {
+		return adminService.saveAuthor(author);
 	}
 
-	public void deleteBook(Book book) {
-
+	@PostMapping("/genre")
+	public Genre addOrUpdateGenre(@RequestBody Genre genre) {
+		return adminService.saveGenre(genre);
 	}
 
-	public void deleteAuthor(Book book) {
-
+	@PostMapping("/publisher")
+	public Publisher addOrUpdatePublisher(@RequestBody Publisher publisher) {
+		return adminService.savePublisher(publisher);
 	}
 
-	public void deleteGenre(Book book) {
-
+	@PostMapping("/librarian")
+	public Librarian addOrUpdateLibrarian(@RequestBody Librarian librarian) {
+		return adminService.saveLibrarian(librarian);
 	}
 
-	public void deletePublisher(Book book) {
-
+	@PostMapping("/library-branch")
+	public LibraryBranch addOrUpdateLibraryBranch(@RequestBody LibraryBranch libraryBranch) {
+		return adminService.saveLibraryBranch(libraryBranch);
 	}
 
-	public void deleteLibrarian(Book book) {
-
+	@PostMapping("/user")
+	public User addOrUpdateUser(@RequestBody User user) {
+		return adminService.saveUser(user);
 	}
 
-	public void deleteBookCopies(Book book) {
-
+	@PostMapping("/add-book-to-branch")
+	public Boolean updateBookForBranch(@RequestParam Long bookId, 
+									   @RequestParam Long libraryBranchId, 
+									   @RequestParam Integer noOfCopies) {
+		return adminService.addBookToBranch(bookId, libraryBranchId, noOfCopies);
 	}
 
-	public void deleteLibraryBranch(Book book) {
-
+	@PostMapping("/override-loan")
+	public void overrideBookLoan(@RequestBody LoanRecord loanRecord) {
+		adminService.overrideLoanRecord(loanRecord);
 	}
 
-	public void deleteLoanRecord(User user) {
-
+	@DeleteMapping("book")
+	public void deleteBook(@RequestParam Long id) {
+		Book book = adminService.getBookById(id);
+		adminService.removeBook(book);
 	}
-	
-	public void deleteUser(User user) {
-		
+
+	@DeleteMapping("author")
+	public void deleteAuthor(@RequestParam Long id) {
+		Author author = adminService.getAuthorById(id);
+		adminService.removeAuthor(author);
+	}
+
+	@DeleteMapping("genre")
+	public void deleteGenre(@RequestParam Long id) {
+		Genre genre = adminService.getGenreById(id);
+		adminService.removeGenre(genre);
+	}
+
+	@DeleteMapping("publisher")
+	public void deletePublisher(@RequestParam Long id) {
+		Publisher publisher = adminService.getPublisherById(id);
+		adminService.removePublisher(publisher);
+	}
+
+	@DeleteMapping("librarian")
+	public void deleteLibrarian(@RequestParam Long id) {
+		Librarian librarian = adminService.getLibrarianById(id);
+		adminService.removeLibrarian(librarian);
+	}
+
+	@DeleteMapping("libraryBranch")
+	public void deleteLibraryBranch(@RequestParam Long id) {
+		LibraryBranch libraryBranch = adminService.getBranchById(id);
+		adminService.removeLibraryBranch(libraryBranch);
+	}
+
+	@DeleteMapping("user")
+	public void deleteUser(@RequestParam Long id) {
+		User user = adminService.getUserById(id);
+		adminService.removeUser(user);
 	}
 	
 }

@@ -1,9 +1,12 @@
 package com.harrisburgu.lms.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,12 +25,20 @@ public class Librarian {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String  name;
-    private String phoneNumber;
+    private String phone;
+    private String email;
     private String address;
     private String ssn;
     private String emergencyContact;
-    private Integer libraryBranchId;
-    private Integer accessLevel;
+    @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private LibraryBranch libraryBranch;
+    @ManyToOne
+    @JoinColumn(name = "access_level")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AccessLevel accessLevel;
 }

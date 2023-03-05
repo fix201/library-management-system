@@ -22,6 +22,6 @@ public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer genreId;
+    private Long genreId;
     private String genreName;
 }
