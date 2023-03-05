@@ -222,11 +222,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `lms`.`book_copies`
+-- Table `lms`.`book_copy`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lms`.`book_copies` ;
+DROP TABLE IF EXISTS `lms`.`book_copy` ;
 
-CREATE TABLE IF NOT EXISTS `lms`.`book_copies` (
+CREATE TABLE IF NOT EXISTS `lms`.`book_copy` (
   `library_branch_id` INT NOT NULL,
   `book_id` INT NOT NULL,
   `no_of_copies` INT NULL DEFAULT 0,

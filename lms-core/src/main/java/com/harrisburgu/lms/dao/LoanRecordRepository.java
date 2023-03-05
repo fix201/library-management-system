@@ -1,6 +1,9 @@
 package com.harrisburgu.lms.dao;
 
+import com.harrisburgu.lms.entity.Book;
+import com.harrisburgu.lms.entity.LibraryBranch;
 import com.harrisburgu.lms.entity.LoanRecord;
+import com.harrisburgu.lms.entity.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,7 +24,7 @@ public interface LoanRecordRepository extends JpaRepository<LoanRecord, Long> {
 			"lr.libraryBranchId = :libraryBranchId and lr.bookId = :bookId and " +
 			"lr.loanDate = :loanDate")
 	LoanRecord findByLoanRecordKeys(@Param("userId") Long userId, 
-								 @Param("libraryBranchId") Long libraryBranchId, 
+								 @Param("libraryBranchId") Long libraryBranch, 
 								 @Param("bookId") Long bookId,
 								 @Param("loanDate") LocalDateTime loanDate);
 

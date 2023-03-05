@@ -2,11 +2,11 @@ package com.harrisburgu.lms.services;
 
 import com.harrisburgu.lms.entity.Author;
 import com.harrisburgu.lms.entity.Book;
-import com.harrisburgu.lms.entity.BookCopies;
+import com.harrisburgu.lms.entity.BookCopy;
 import com.harrisburgu.lms.entity.Genre;
 import com.harrisburgu.lms.entity.Librarian;
-import com.harrisburgu.lms.entity.LoanRecord;
 import com.harrisburgu.lms.entity.LibraryBranch;
+import com.harrisburgu.lms.entity.LoanRecord;
 import com.harrisburgu.lms.entity.Publisher;
 import com.harrisburgu.lms.entity.User;
 import org.slf4j.Logger;
@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -41,8 +40,10 @@ public class AdminService extends BaseService {
 
 		try {
 			tempBook = bookRepo.save(tempBook);
+			
+			logger.info("{}",bookRepo.findById(tempBook.getId()));
 		} catch (DataIntegrityViolationException e) {
-			logger.error("Book with same ISBN '{}' already exists!", book.getIsbn());
+			logger.error("{}", e.getMessage());
 			logger.debug("",e.fillInStackTrace());
 			return null;
 		}
@@ -70,9 +71,8 @@ public class AdminService extends BaseService {
 		try {
 			tempAuthor = authorRepo.save(tempAuthor);
 		} catch (DataIntegrityViolationException e) {
-			logger.error("Author with same email '{}' already exists!", author.getEmail());
+			logger.error("{}", e.getMessage());
 			logger.debug("",e.fillInStackTrace());
-			return null;
 		}
 
 		return tempAuthor;
@@ -217,7 +217,7 @@ public class AdminService extends BaseService {
 	public Boolean addBookToBranch(Long bookId, Long branchId, Integer noOfCopies) {
 		if (bookId != null && branchId != null && noOfCopies != null) {
 			if(bookRepo.existsById(bookId) && libraryBranchRepo.existsById(branchId)) {
-				bookCopiesRepo.save(new BookCopies(bookId, branchId, noOfCopies));
+				bookCopiesRepo.save(new BookCopy(branchId, bookId, noOfCopies));
 				return true;
 			} else {
 				logger.error("Book with id '{}' or Library Branch with id '{}' does not exist", bookId, branchId);
@@ -230,13 +230,21 @@ public class AdminService extends BaseService {
 		return false;
 	}
 
-	public LoanRecord overrideBookLoan(LoanRecord loanRecord) {
+	/**
+	 * Overrides an existing loan record with the provided loan record, 
+	 * setting the due date to 8 days after the loan date if it is not already set.
+	 *
+	 * @param loanRecord the {@link LoanRecord} object to override the existing loan record with
+	 * @return the updated {@link LoanRecord} object that has been saved to the database
+	 */
+	public LoanRecord overrideLoanRecord(LoanRecord loanRecord) {
 		LoanRecord tempLoanRecord = null;
 		
 		if (loanRecord.getDueDate() == null) {
 			loanRecord.setDueDate(loanRecord.getLoanDate().plusDays(8));
+			logger.info("Setting Due Date: {}", loanRecord.getLoanDate());
 		}
-		
+		logger.info("-12-Current Loan Record: {}", loanRecord);
 		if(loanRecord.getBookId() != null && loanRecord.getBookId() != null 
 				&& loanRecord.getUserId() != null) {
 			tempLoanRecord = loanRecordRepo.findByLoanRecordKeys(loanRecord.getUserId(), loanRecord.getLibraryBranchId(), 
@@ -250,5 +258,104 @@ public class AdminService extends BaseService {
 		}
 		
 		return tempLoanRecord;
+	}
+
+	/**
+	 * Remove a book from the database,
+	 * along with any references to the book
+	 * 
+	 * @param book {@link Book} object to be removed
+	 */
+	public void removeBook(Book book) {
+		// remove author references to book
+		
+		// remove library branch references to book
+		
+		// remove loan records references to book
+		
+		// remove genre reference to book
+		
+		
+		bookRepo.delete(book);
+	}
+
+	/**
+	 * Remove an author from the database, 
+	 * along with any references to the author in books
+	 *
+	 * @param author {@link Author} object to be removed
+	 */
+	public void removeAuthor(Author author) {
+		// remove the author from any books
+
+		// delete the author
+		authorRepo.delete(author);
+	}
+
+	/**
+	 * Remove a genre from the database, 
+	 * along with any references to the genre in books
+	 *
+	 * @param genre {@link Genre} object to be removed
+	 */
+	public void removeGenre(Genre genre) {
+		// remove the genre from any books
+
+		// delete the genre
+		genreRepo.delete(genre);
+	}
+
+	/**
+	 * Remove a publisher from the database, 
+	 * along with any references to the publisher in books
+	 *
+	 * @param publisher {@link Publisher} object to be removed
+	 */
+	public void removePublisher(Publisher publisher) {
+		// remove the publisher from any books
+
+		// delete the publisher
+		publisherRepo.delete(publisher);
+	}
+
+	/**
+	 * Remove a librarian from the database, 
+	 * along with any book loans associated with the librarian
+	 *
+	 * @param librarian {@link Librarian} object to be removed
+	 */
+	public void removeLibrarian(Librarian librarian) {
+		// remove the librarian from any book loans
+
+		// delete the librarian
+		librarianRepo.delete(librarian);
+	}
+
+	/**
+	 * Remove a library branch from the database, 
+	 * along with any book copies or loans associated with the branch
+	 *
+	 * @param libraryBranch {@link LibraryBranch} object to be removed
+	 */
+	public void removeLibraryBranch(LibraryBranch libraryBranch) {
+		// remove the library branch from any book copies
+
+		// remove the library branch from any book loans
+
+		// delete the library branch
+		libraryBranchRepo.delete(libraryBranch);
+	}
+
+	/**
+	 * Remove a user from the database, 
+	 * along with any book loans associated with the user
+	 *
+	 * @param user {@link User} object to be removed
+	 */
+	public void removeUser(User user) {
+		// remove any book loans associated with the user
+
+		// delete the user
+		userRepo.delete(user);
 	}
 }
