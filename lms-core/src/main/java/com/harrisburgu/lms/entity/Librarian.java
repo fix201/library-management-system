@@ -28,18 +28,17 @@ public class Librarian {
     private Long id;
     private String  name;
     private String phone;
+    private String email;
     private String address;
     private String ssn;
     private String emergencyContact;
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JsonIgnore
     private LibraryBranch libraryBranch;
     @ManyToOne
     @JoinColumn(name = "access_level")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JsonIgnore
     private AccessLevel accessLevel;
 }

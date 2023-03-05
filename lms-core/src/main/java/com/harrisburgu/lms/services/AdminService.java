@@ -144,6 +144,14 @@ public class AdminService extends BaseService {
 			logger.info("Adding Librarian: {}", tempLibrarian);
 		}
 
+		try {
+			tempLibrarian = librarianRepo.save(tempLibrarian);
+		} catch (DataIntegrityViolationException e) {
+			logger.error("{}", e.getMessage());
+			logger.debug("",e.fillInStackTrace());
+			return null;
+		}
+
 		return tempLibrarian;
 	}
 
