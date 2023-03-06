@@ -38,7 +38,6 @@ public class Librarian {
     private LibraryBranch libraryBranch;
     @ManyToOne
     @JoinColumn(name = "access_level")
-    @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private AccessLevel accessLevel;
 }

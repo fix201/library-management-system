@@ -1,5 +1,6 @@
 package com.harrisburgu.lms.services;
 
+import com.harrisburgu.lms.entity.AccessLevel;
 import com.harrisburgu.lms.entity.Author;
 import com.harrisburgu.lms.entity.Book;
 import com.harrisburgu.lms.entity.BookCopy;
@@ -15,6 +16,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminService extends BaseService {
@@ -37,18 +40,8 @@ public class AdminService extends BaseService {
 			tempBook = book;
 			logger.info("Adding Book: {}", tempBook);
 		}
-
-		try {
-			tempBook = bookRepo.save(tempBook);
-			
-			logger.info("{}",bookRepo.findById(tempBook.getId()));
-		} catch (DataIntegrityViolationException e) {
-			logger.error("{}", e.getMessage());
-			logger.debug("",e.fillInStackTrace());
-			return null;
-		}
-
-		return tempBook;
+		
+		return bookRepo.save(tempBook);
 	}
 
 	/**
@@ -68,14 +61,7 @@ public class AdminService extends BaseService {
 			logger.info("Adding Author: {}", tempAuthor);
 		}
 
-		try {
-			tempAuthor = authorRepo.save(tempAuthor);
-		} catch (DataIntegrityViolationException e) {
-			logger.error("{}", e.getMessage());
-			logger.debug("",e.fillInStackTrace());
-		}
-
-		return tempAuthor;
+		return authorRepo.save(tempAuthor);
 	}
 
 	/**
@@ -115,16 +101,7 @@ public class AdminService extends BaseService {
 			logger.info("Adding Publisher: {}", tempPublisher);
 		}
 
-		try {
-			tempPublisher = publisherRepo.save(tempPublisher);
-		} catch (DataIntegrityViolationException e) {
-			logger.error("Publisher with same name '{}', phone number '{}', or email '{}' already exists!",
-					publisher.getName(), publisher.getPhoneNumber(), publisher.getEmail());
-			logger.debug("",e.fillInStackTrace());
-			return null;
-		}
-
-		return tempPublisher;
+		return publisherRepo.save(tempPublisher);
 	}
 
 	/**
@@ -134,7 +111,14 @@ public class AdminService extends BaseService {
 	 */
 	public Librarian saveLibrarian(Librarian librarian) {
 		Librarian tempLibrarian;
-
+		
+		// set librarian access level to default
+		if(librarian.getAccessLevel() == null) {
+			AccessLevel accessLevel = new AccessLevel();
+			accessLevel.setId(1L);
+			librarian.setAccessLevel(accessLevel);
+		}
+		
 		if (librarian.getId() != null && librarianRepo.existsById(librarian.getId())) {
 			tempLibrarian = (Librarian) getObjectFromOptional(librarianRepo.findById(librarian.getId()));
 			CopyUtil.copyProperties(librarian, tempLibrarian);
@@ -144,15 +128,7 @@ public class AdminService extends BaseService {
 			logger.info("Adding Librarian: {}", tempLibrarian);
 		}
 
-		try {
-			tempLibrarian = librarianRepo.save(tempLibrarian);
-		} catch (DataIntegrityViolationException e) {
-			logger.error("{}", e.getMessage());
-			logger.debug("",e.fillInStackTrace());
-			return null;
-		}
-
-		return tempLibrarian;
+		return librarianRepo.save(tempLibrarian);
 	}
 
 	/**
@@ -172,7 +148,7 @@ public class AdminService extends BaseService {
 			logger.info("Adding Library Branch: {}", tempLibraryBranch);
 		}
 
-		return tempLibraryBranch;
+		return libraryBranchRepo.save(tempLibraryBranch);
 	}
 
 	/**
@@ -192,16 +168,7 @@ public class AdminService extends BaseService {
 			logger.info("Adding User: {}", tempUser);
 		}
 
-		try {
-			tempUser = userRepo.save(tempUser);
-		} catch (DataIntegrityViolationException e) {
-			logger.error("User with same phone number '{}', or email '{}' already exists!",
-						user.getPhone(), user.getEmail());
-			logger.debug("",e.fillInStackTrace());
-			return null;
-		}
-
-		return tempUser;
+		return userRepo.save(tempUser);
 	}
 
 	/**
