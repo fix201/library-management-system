@@ -15,7 +15,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -38,5 +38,5 @@ public class Author {
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
 	@JsonIgnore
-	private List<Book> books;
+	private Set<Book> books;
 }

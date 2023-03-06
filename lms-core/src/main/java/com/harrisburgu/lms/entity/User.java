@@ -25,6 +25,7 @@ public class User {
     private Long id;
     private String name;
     private String occupation;
+    private String gender;
     private String phone;
     private String email;
     private String address;

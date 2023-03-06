@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor @AllArgsConstructor
@@ -35,14 +36,23 @@ public class Book {
     private String language;
     private LocalDate publicationDate;
     @ManyToOne
+    @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Publisher publisher;
-    @ManyToMany
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Author> authors;
     @ManyToMany
+    @JoinTable(name = "book_author",
+            joinColumns = {@JoinColumn(name = "bookId")},
+            inverseJoinColumns = {@JoinColumn(name = "authorId")})
+    @JsonIgnore
+    private Set<Author> authors;
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Genre> genres;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "book_genre",
+            joinColumns = {@JoinColumn(name = "bookId")}, 
+            inverseJoinColumns = {@JoinColumn(name = "genreId")})
+    @JsonIgnore
+    private Set<Genre> genres;
 }

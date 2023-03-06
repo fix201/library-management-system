@@ -3,7 +3,7 @@
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_unique_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
@@ -33,9 +33,9 @@ CREATE TABLE IF NOT EXISTS `lms`.`publisher` (
   `establishment_date` DATE NULL,
   `isbn_prefix` VARCHAR(5) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `phone_number_UNIQUE` (`phone_number` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+  UNIQUE INDEX `phone_number_unique` (`phone_number` ASC) VISIBLE,
+  UNIQUE INDEX `email_unique` (`email` ASC) VISIBLE,
+  UNIQUE INDEX `name_unique` (`name` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `lms`.`book` (
   `language` VARCHAR(45) NULL,
   `publication_date` DATE NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `isbn_UNIQUE` (`isbn` ASC) VISIBLE,
+  UNIQUE INDEX `isbn_unique` (`isbn` ASC) VISIBLE,
   INDEX `fk_book_publisher_idx` (`publisher_id` ASC) VISIBLE,
   CONSTRAINT `fk_book_publisher`
     FOREIGN KEY (`publisher_id`)
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `lms`.`author` (
   `email` VARCHAR(45) NULL,
   `dob` DATE NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
+  UNIQUE INDEX `email_unique` (`email` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -155,8 +155,8 @@ CREATE TABLE IF NOT EXISTS `lms`.`user` (
   `email` VARCHAR(45) NOT NULL,
   `address` VARCHAR(60) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE)
+  UNIQUE INDEX `email_unique` (`email` ASC) VISIBLE,
+  UNIQUE INDEX `phone_unique` (`phone` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -167,7 +167,7 @@ DROP TABLE IF EXISTS `lms`.`library_branch` ;
 
 CREATE TABLE IF NOT EXISTS `lms`.`library_branch` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL UNIQUE,
   `address` VARCHAR(60) NOT NULL,
   `hours_of_operation` VARCHAR(100) NOT NULL,
   `phone_number` VARCHAR(45) NOT NULL,
@@ -206,6 +206,7 @@ CREATE TABLE IF NOT EXISTS `lms`.`librarian` (
   `library_branch_id` INT NOT NULL,
   `access_level` INT NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE INDEX `email_unique` (`email` ASC) VISIBLE,
   INDEX `fk_librarian_library_branch1_idx` (`library_branch_id` ASC) VISIBLE,
   INDEX `fk_librarian_lms_access_level1_idx` (`access_level` ASC) VISIBLE,
   CONSTRAINT `fk_librarian_library_branch1`
@@ -281,4 +282,4 @@ ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+SET UNIQUE_CHECKS=@OLD_unique_CHECKS;
