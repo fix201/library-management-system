@@ -28,7 +28,7 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long genreId;
     private String genreName;
-    @ManyToMany
+    @ManyToMany(mappedBy = "genres")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JsonIgnore
