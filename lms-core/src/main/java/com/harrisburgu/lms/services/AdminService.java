@@ -239,98 +239,82 @@ public class AdminService extends BaseService {
 	 * Remove a book from the database,
 	 * along with any references to the book
 	 * 
-	 * @param book {@link Book} object to be removed
+	 * @param id {@link Book} object id to be removed
 	 */
-	public void removeBook(Book book) {
-		// remove author references to book
+	public void removeBook(Long id) {
 		
 		// remove library branch references to book
 		
 		// remove loan records references to book
 		
-		// remove genre reference to book
-		
-		
-		bookRepo.delete(book);
+		bookRepo.deleteById(id);
 	}
 
 	/**
 	 * Remove an author from the database, 
 	 * along with any references to the author in books
 	 *
-	 * @param author {@link Author} object to be removed
+	 * @param id {@link Author} object id to be removed
 	 */
-	public void removeAuthor(Author author) {
-		// remove the author from any books
-
-		// delete the author
-		authorRepo.delete(author);
+	public void removeAuthor(Long id) {
+		authorRepo.deleteById(id);
 	}
 
 	/**
 	 * Remove a genre from the database, 
 	 * along with any references to the genre in books
 	 *
-	 * @param genre {@link Genre} object to be removed
+	 * @param id {@link Genre} object id to be removed
 	 */
-	public void removeGenre(Genre genre) {
-		// remove the genre from any books
-
-		// delete the genre
-		genreRepo.delete(genre);
+	public void removeGenre(Long id) {
+		genreRepo.deleteById(id);
 	}
 
 	/**
 	 * Remove a publisher from the database, 
 	 * along with any references to the publisher in books
 	 *
-	 * @param publisher {@link Publisher} object to be removed
+	 * @param id {@link Publisher} object id to be removed
 	 */
-	public void removePublisher(Publisher publisher) {
-		// remove the publisher from any books
-
-		// delete the publisher
-		publisherRepo.delete(publisher);
+	public void removePublisher(Long id) {
+		publisherRepo.deleteById(id);
 	}
 
 	/**
 	 * Remove a librarian from the database, 
 	 * along with any book loans associated with the librarian
 	 *
-	 * @param librarian {@link Librarian} object to be removed
+	 * @param id {@link Librarian} object id to be removed
 	 */
-	public void removeLibrarian(Librarian librarian) {
-		// remove the librarian from any book loans
-
-		// delete the librarian
-		librarianRepo.delete(librarian);
+	public void removeLibrarian(Long id) {
+		librarianRepo.deleteById(id);
 	}
 
 	/**
 	 * Remove a library branch from the database, 
 	 * along with any book copies or loans associated with the branch
 	 *
-	 * @param libraryBranch {@link LibraryBranch} object to be removed
+	 * @param id {@link LibraryBranch} object id to be removed
 	 */
-	public void removeLibraryBranch(LibraryBranch libraryBranch) {
+	public void removeLibraryBranch(Long id) {
 		// remove the library branch from any book copies
 
 		// remove the library branch from any book loans
 
 		// delete the library branch
-		libraryBranchRepo.delete(libraryBranch);
+		libraryBranchRepo.deleteById(id);
 	}
 
 	/**
 	 * Remove a user from the database, 
 	 * along with any book loans associated with the user
 	 *
-	 * @param user {@link User} object to be removed
+	 * @param id {@link User} object id to be removed
 	 */
-	public void removeUser(User user) {
+	public void removeUser(Long id) {
 		// remove any book loans associated with the user
 
 		// delete the user
-		userRepo.delete(user);
+		userRepo.deleteById(id);
 	}
 }

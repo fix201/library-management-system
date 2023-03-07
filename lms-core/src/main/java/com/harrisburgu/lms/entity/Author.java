@@ -34,7 +34,7 @@ public class Author {
 	private String email;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dob;
-	@ManyToMany
+	@ManyToMany(mappedBy = "authors")
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
 	@JsonIgnore

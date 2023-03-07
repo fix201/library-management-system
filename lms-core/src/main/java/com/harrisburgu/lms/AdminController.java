@@ -184,44 +184,37 @@ public class AdminController {
 
 	@DeleteMapping("book")
 	public void deleteBook(@RequestParam Long id) {
-		Book book = adminService.getBookById(id);
-		adminService.removeBook(book);
+		adminService.removeBook(id);
 	}
 
 	@DeleteMapping("author")
 	public void deleteAuthor(@RequestParam Long id) {
-		Author author = adminService.getAuthorById(id);
-		adminService.removeAuthor(author);
+		adminService.removeAuthor(id);
 	}
 
 	@DeleteMapping("genre")
 	public void deleteGenre(@RequestParam Long id) {
-		Genre genre = adminService.getGenreById(id);
-		adminService.removeGenre(genre);
+		adminService.removeGenre(id);
 	}
 
 	@DeleteMapping("publisher")
 	public void deletePublisher(@RequestParam Long id) {
-		Publisher publisher = adminService.getPublisherById(id);
-		adminService.removePublisher(publisher);
+		adminService.removePublisher(id);
 	}
 
 	@DeleteMapping("librarian")
 	public void deleteLibrarian(@RequestParam Long id) {
-		Librarian librarian = adminService.getLibrarianById(id);
-		adminService.removeLibrarian(librarian);
+		adminService.removeLibrarian(id);
 	}
 
 	@DeleteMapping("libraryBranch")
 	public void deleteLibraryBranch(@RequestParam Long id) {
-		LibraryBranch libraryBranch = adminService.getBranchById(id);
-		adminService.removeLibraryBranch(libraryBranch);
+		adminService.removeLibraryBranch(id);
 	}
 
 	@DeleteMapping("user")
 	public void deleteUser(@RequestParam Long id) {
-		User user = adminService.getUserById(id);
-		adminService.removeUser(user);
+		adminService.removeUser(id);
 	}
 	
 }

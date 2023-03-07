@@ -36,7 +36,7 @@ public class Publisher {
     private String type;
     private LocalDate establishmentDate;
     private String isbnPrefix;
-    @OneToMany
+    @OneToMany(mappedBy = "publisher")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JsonIgnore

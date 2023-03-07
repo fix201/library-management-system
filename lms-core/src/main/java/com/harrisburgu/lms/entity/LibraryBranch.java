@@ -33,7 +33,7 @@ public class LibraryBranch {
     private String phoneNumber;
     private Integer capacity;
     private String email;
-    @OneToMany
+    @OneToMany(mappedBy = "libraryBranch")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JsonIgnore
