@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface BookCopiesRepository extends JpaRepository<BookCopy, Long> {
+public interface BookCopyRepository extends JpaRepository<BookCopy, Long> {
 	List<BookCopy> findByLibraryBranchId(Long branchId);
 	BookCopy findByLibraryBranchIdAndBookId(Long branchId, Long bookId);
 }

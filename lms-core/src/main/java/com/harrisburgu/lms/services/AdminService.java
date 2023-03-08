@@ -12,12 +12,10 @@ import com.harrisburgu.lms.entity.Publisher;
 import com.harrisburgu.lms.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class AdminService extends BaseService {
@@ -184,27 +182,13 @@ public class AdminService extends BaseService {
 
 	/**
 	 * Adds a book to a library branch or updates the branch's book copies
-	 * @param bookId id of the {@link Book}
-	 * @param branchId id of the {@link LibraryBranch}
-	 * @param noOfCopies number of book copies
-	 * @return true if operation completed successfully, false otherwise
+	 * @param bookCopy {@link BookCopy} object
+	 * @return {@link BookCopy} object if operation completed successfully
 	 */
-	public Boolean addBookToBranch(Long bookId, Long branchId, Integer noOfCopies) {
-		if (bookId != null && branchId != null && noOfCopies != null) {
-			if(bookRepo.existsById(bookId) && libraryBranchRepo.existsById(branchId)) {
-				bookCopiesRepo.save(new BookCopy(branchId, bookId, noOfCopies));
-				return true;
-			} else {
-				logger.error("Book with id '{}' or Library Branch with id '{}' does not exist", bookId, branchId);
-			}
-		} else {
-			logger.error("bookId'{}' or branchId '{}' or noOfCopies '{}' is null",
-					bookId, branchId, noOfCopies);
-		}
-		
-		return false;
+	public BookCopy addBookToBranch(BookCopy bookCopy) {
+		return bookCopyRepo.save(bookCopy);
 	}
-
+	
 	/**
 	 * Overrides an existing loan record with the provided loan record, 
 	 * setting the due date to 8 days after the loan date if it is not already set.
@@ -219,18 +203,15 @@ public class AdminService extends BaseService {
 			loanRecord.setDueDate(loanRecord.getLoanDate().plusDays(8));
 			logger.info("Setting Due Date: {}", loanRecord.getLoanDate());
 		}
-		logger.info("-12-Current Loan Record: {}", loanRecord);
-		if(loanRecord.getBookId() != null && loanRecord.getBookId() != null 
-				&& loanRecord.getUserId() != null) {
-			tempLoanRecord = loanRecordRepo.findByLoanRecordKeys(loanRecord.getUserId(), loanRecord.getLibraryBranchId(), 
-					loanRecord.getBookId(), loanRecord.getLoanDate());
-			logger.info("Current Loan Record: {}", tempLoanRecord);
+		
+		tempLoanRecord = loanRecordRepo.findByLoanRecordKeys(loanRecord.getUserId(), loanRecord.getLibraryBranchId(), 
+				loanRecord.getBookId(), loanRecord.getLoanDate());
+		
+		if(tempLoanRecord != null) {
 			CopyUtil.copyProperties(loanRecord, tempLoanRecord);
-			logger.info("Updated Loan Record: {}", tempLoanRecord);
-			tempLoanRecord = loanRecordRepo.save(tempLoanRecord);
-		} else {
-			logger.error("One or more of '{}' is null", loanRecord);
 		}
+		
+		tempLoanRecord = loanRecordRepo.save(loanRecord);
 		
 		return tempLoanRecord;
 	}
@@ -316,5 +297,14 @@ public class AdminService extends BaseService {
 
 		// delete the user
 		userRepo.deleteById(id);
+	}
+
+	/**
+	 * Remove a book from a branch collection
+	 * @param branchId Library Branch Id
+	 * @param bookId Book Id   
+	 */
+	public void removeBookFromBranch(Long branchId, Long bookId) {
+		bookCopyRepo.delete(new BookCopy(branchId, bookId, null));
 	}
 }

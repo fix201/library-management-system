@@ -3,7 +3,7 @@ package com.harrisburgu.lms.services;
 import com.harrisburgu.lms.dao.AccessLevelRepository;
 import com.harrisburgu.lms.dao.AuthorRepository;
 import com.harrisburgu.lms.dao.BookAuthorRepository;
-import com.harrisburgu.lms.dao.BookCopiesRepository;
+import com.harrisburgu.lms.dao.BookCopyRepository;
 import com.harrisburgu.lms.dao.BookGenreRepository;
 import com.harrisburgu.lms.dao.BookRepository;
 import com.harrisburgu.lms.dao.GenreRepository;
@@ -37,7 +37,7 @@ public abstract class BaseService {
 	@Autowired
 	protected BookAuthorRepository bookAuthorRepo;
 	@Autowired
-	protected BookCopiesRepository bookCopiesRepo;
+	protected BookCopyRepository bookCopyRepo;
 	@Autowired
 	protected BookGenreRepository bookGenreRepo;
 	@Autowired
@@ -330,7 +330,7 @@ public abstract class BaseService {
 	 * @return {@link Integer} number of books
 	 */
 	public Integer getBookCopiesForBranch(Long branchId, Long bookId){
-		BookCopy records = bookCopiesRepo.findByLibraryBranchIdAndBookId(branchId, bookId);
+		BookCopy records = bookCopyRepo.findByLibraryBranchIdAndBookId(branchId, bookId);
 		logger.info("Library Branch with id {} has {} Copies of Book id {}", branchId, records.getNoOfCopies(), bookId);
 		return records.getNoOfCopies();
 	}

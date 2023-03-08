@@ -36,6 +36,7 @@ public class LoanRecord {
     private Long libraryBranchId;
     @Id
     private Long bookId;
+    @Id
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss[.SSS][.SS][.S]")
     private LocalDateTime loanDate;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss[.SSS][.SS][.S]")
@@ -49,4 +50,5 @@ class LoanRecordId implements Serializable {
     private Long userId;
     private Long libraryBranchId;
     private Long bookId;
+    private LocalDateTime loanDate;
 }

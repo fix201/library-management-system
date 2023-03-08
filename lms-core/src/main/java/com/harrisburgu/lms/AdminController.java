@@ -2,6 +2,7 @@ package com.harrisburgu.lms;
 
 import com.harrisburgu.lms.entity.Author;
 import com.harrisburgu.lms.entity.Book;
+import com.harrisburgu.lms.entity.BookCopy;
 import com.harrisburgu.lms.entity.Genre;
 import com.harrisburgu.lms.entity.Librarian;
 import com.harrisburgu.lms.entity.LibraryBranch;
@@ -12,6 +13,7 @@ import com.harrisburgu.lms.services.AdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -160,7 +162,7 @@ public class AdminController {
 		return adminService.saveLibrarian(librarian);
 	}
 
-	@PostMapping("/library-branch")
+	@PostMapping("/library/branch")
 	public LibraryBranch addOrUpdateLibraryBranch(@RequestBody LibraryBranch libraryBranch) {
 		return adminService.saveLibraryBranch(libraryBranch);
 	}
@@ -171,50 +173,60 @@ public class AdminController {
 	}
 
 	@PostMapping("/add-book-to-branch")
-	public Boolean updateBookForBranch(@RequestParam Long bookId, 
-									   @RequestParam Long libraryBranchId, 
-									   @RequestParam Integer noOfCopies) {
-		return adminService.addBookToBranch(bookId, libraryBranchId, noOfCopies);
+	public BookCopy updateBookForBranch(@RequestBody BookCopy bookCopy) {
+		return adminService.addBookToBranch(bookCopy);
 	}
 
 	@PostMapping("/override-loan")
-	public void overrideBookLoan(@RequestBody LoanRecord loanRecord) {
-		adminService.overrideLoanRecord(loanRecord);
+	public ResponseEntity<LoanRecord> overrideBookLoan(@RequestBody LoanRecord loanRecord) {
+		Book book = adminService.getBookById(loanRecord.getBookId());
+		LibraryBranch branch = adminService.getBranchById(loanRecord.getLibraryBranchId());
+
+		if (book == null || branch == null) {
+			return ResponseEntity.badRequest().body(null);
+		}
+		
+		return ResponseEntity.ok(adminService.overrideLoanRecord(loanRecord));
 	}
 
-	@DeleteMapping("book")
+	@DeleteMapping("/book")
 	public void deleteBook(@RequestParam Long id) {
 		adminService.removeBook(id);
 	}
 
-	@DeleteMapping("author")
+	@DeleteMapping("/author")
 	public void deleteAuthor(@RequestParam Long id) {
 		adminService.removeAuthor(id);
 	}
 
-	@DeleteMapping("genre")
+	@DeleteMapping("/genre")
 	public void deleteGenre(@RequestParam Long id) {
 		adminService.removeGenre(id);
 	}
 
-	@DeleteMapping("publisher")
+	@DeleteMapping("/publisher")
 	public void deletePublisher(@RequestParam Long id) {
 		adminService.removePublisher(id);
 	}
 
-	@DeleteMapping("librarian")
+	@DeleteMapping("/librarian")
 	public void deleteLibrarian(@RequestParam Long id) {
 		adminService.removeLibrarian(id);
 	}
 
-	@DeleteMapping("libraryBranch")
+	@DeleteMapping("library/branches")
 	public void deleteLibraryBranch(@RequestParam Long id) {
 		adminService.removeLibraryBranch(id);
 	}
 
-	@DeleteMapping("user")
+	@DeleteMapping("/user")
 	public void deleteUser(@RequestParam Long id) {
 		adminService.removeUser(id);
+	}
+	
+	@DeleteMapping("/library/branches/{branchId}/books/{bookId}")
+	public void deleteBookFromBranch(@PathVariable Long branchId, @PathVariable Long bookId) {
+		adminService.removeBookFromBranch(branchId, bookId);
 	}
 	
 }
