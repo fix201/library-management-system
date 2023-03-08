@@ -178,15 +178,8 @@ public class AdminController {
 	}
 
 	@PostMapping("/override-loan")
-	public ResponseEntity<LoanRecord> overrideBookLoan(@RequestBody LoanRecord loanRecord) {
-		Book book = adminService.getBookById(loanRecord.getBookId());
-		LibraryBranch branch = adminService.getBranchById(loanRecord.getLibraryBranchId());
-
-		if (book == null || branch == null) {
-			return ResponseEntity.badRequest().body(null);
-		}
-		
-		return ResponseEntity.ok(adminService.overrideLoanRecord(loanRecord));
+	public LoanRecord overrideBookLoan(@RequestBody LoanRecord loanRecord) {
+		return adminService.overrideLoanRecord(loanRecord);
 	}
 
 	@DeleteMapping("/book")
