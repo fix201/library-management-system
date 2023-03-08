@@ -1,7 +1,11 @@
 package com.harrisburgu.lms;
 
 import com.harrisburgu.lms.entity.Book;
-import com.harrisburgu.lms.services.LibrarianService;
+import com.harrisburgu.lms.services.CreateUpdateService;
+import com.harrisburgu.lms.services.DeleteService;
+import com.harrisburgu.lms.services.ReadService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,37 +15,43 @@ import java.util.List;
 @RequestMapping(value = "/librarian")
 public class LibrarianController {
 
+    private final Logger logger = LoggerFactory.getLogger(LibrarianController.class);
+    private ReadService readService;
+    private CreateUpdateService createUpdateService;
+    private DeleteService deleteService;
 
-    private LibrarianService librarianService;
-    @Autowired
-    public void setLibrarianService(LibrarianService librarianService) {
-        this.librarianService = librarianService;
+    public LibrarianController(ReadService readService,
+                           CreateUpdateService createUpdateService,
+                           DeleteService deleteService) {
+        this.readService = readService;
+        this.createUpdateService = createUpdateService;
+        this.deleteService = deleteService;
     }
 
 
     @GetMapping("")
     public List<Book> getAllBooks() {
-        return librarianService.getAllBooks();
+        return readService.getAllBooks();
     }
 
     @GetMapping("/{bookId}")
     public Book getBookById(@PathVariable Long bookId) {
-        return librarianService.getBookById(bookId);
+        return readService.getBookById(bookId);
     }
 
     @PostMapping("")
     public void addBook(@RequestBody Book book) {
-        librarianService.addBook(book);
+        createUpdateService.saveBook(book);
     }
 
     @PutMapping("/{bookId}")
     public void updateBook(@PathVariable Long bookId, @RequestBody Book book) {
         book.setId(bookId);
-        librarianService.updateBook(book);
+        createUpdateService.saveBook(book);
     }
 
     @DeleteMapping("/{bookId}")
     public void removeBook(@PathVariable Long bookId) {
-        librarianService.removeBook(bookId);
+        deleteService.removeBook(bookId);
     }
 }
