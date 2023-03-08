@@ -12,17 +12,14 @@ import com.harrisburgu.lms.entity.Publisher;
 import com.harrisburgu.lms.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
-public class AdminService extends BaseService {
+public class CreateUpdateService extends BaseService {
 
-	private final Logger logger = LoggerFactory.getLogger(AdminService.class);
+	private final Logger logger = LoggerFactory.getLogger(CreateUpdateService.class);
 
 	/**
 	 * Creates a new book if it doesn't exist or Updates existing book
@@ -172,39 +169,14 @@ public class AdminService extends BaseService {
 	}
 
 	/**
-	 * Get all loan records
-	 *
-	 * @return List of {@link com.harrisburgu.lms.entity.LoanRecord} objects
-	 */
-	public List<LoanRecord> getAllLoanRecords() {
-		List<LoanRecord> records = loanRecordRepo.findAll();
-		logger.info("Loan Records: {}", records);
-		return records;
-	}
-
-	/**
 	 * Adds a book to a library branch or updates the branch's book copies
-	 * @param bookId id of the {@link Book}
-	 * @param branchId id of the {@link LibraryBranch}
-	 * @param noOfCopies number of book copies
-	 * @return true if operation completed successfully, false otherwise
+	 * @param bookCopy {@link BookCopy} object
+	 * @return {@link BookCopy} object if operation completed successfully
 	 */
-	public Boolean addBookToBranch(Long bookId, Long branchId, Integer noOfCopies) {
-		if (bookId != null && branchId != null && noOfCopies != null) {
-			if(bookRepo.existsById(bookId) && libraryBranchRepo.existsById(branchId)) {
-				bookCopiesRepo.save(new BookCopy(branchId, bookId, noOfCopies));
-				return true;
-			} else {
-				logger.error("Book with id '{}' or Library Branch with id '{}' does not exist", bookId, branchId);
-			}
-		} else {
-			logger.error("bookId'{}' or branchId '{}' or noOfCopies '{}' is null",
-					bookId, branchId, noOfCopies);
-		}
-		
-		return false;
+	public BookCopy addBookToBranch(BookCopy bookCopy) {
+		return bookCopyRepo.save(bookCopy);
 	}
-
+	
 	/**
 	 * Overrides an existing loan record with the provided loan record, 
 	 * setting the due date to 8 days after the loan date if it is not already set.
@@ -219,102 +191,17 @@ public class AdminService extends BaseService {
 			loanRecord.setDueDate(loanRecord.getLoanDate().plusDays(8));
 			logger.info("Setting Due Date: {}", loanRecord.getLoanDate());
 		}
-		logger.info("-12-Current Loan Record: {}", loanRecord);
-		if(loanRecord.getBookId() != null && loanRecord.getBookId() != null 
-				&& loanRecord.getUserId() != null) {
-			tempLoanRecord = loanRecordRepo.findByLoanRecordKeys(loanRecord.getUserId(), loanRecord.getLibraryBranchId(), 
-					loanRecord.getBookId(), loanRecord.getLoanDate());
-			logger.info("Current Loan Record: {}", tempLoanRecord);
+		
+		tempLoanRecord = loanRecordRepo.findByLoanRecordKeys(loanRecord.getUserId(), loanRecord.getLibraryBranchId(), 
+				loanRecord.getBookId(), loanRecord.getLoanDate());
+		
+		if(tempLoanRecord != null) {
 			CopyUtil.copyProperties(loanRecord, tempLoanRecord);
-			logger.info("Updated Loan Record: {}", tempLoanRecord);
-			tempLoanRecord = loanRecordRepo.save(tempLoanRecord);
-		} else {
-			logger.error("One or more of '{}' is null", loanRecord);
 		}
+		
+		tempLoanRecord = loanRecordRepo.save(loanRecord);
 		
 		return tempLoanRecord;
 	}
 
-	/**
-	 * Remove a book from the database,
-	 * along with any references to the book
-	 * 
-	 * @param id {@link Book} object id to be removed
-	 */
-	public void removeBook(Long id) {
-		
-		// remove library branch references to book
-		
-		// remove loan records references to book
-		
-		bookRepo.deleteById(id);
-	}
-
-	/**
-	 * Remove an author from the database, 
-	 * along with any references to the author in books
-	 *
-	 * @param id {@link Author} object id to be removed
-	 */
-	public void removeAuthor(Long id) {
-		authorRepo.deleteById(id);
-	}
-
-	/**
-	 * Remove a genre from the database, 
-	 * along with any references to the genre in books
-	 *
-	 * @param id {@link Genre} object id to be removed
-	 */
-	public void removeGenre(Long id) {
-		genreRepo.deleteById(id);
-	}
-
-	/**
-	 * Remove a publisher from the database, 
-	 * along with any references to the publisher in books
-	 *
-	 * @param id {@link Publisher} object id to be removed
-	 */
-	public void removePublisher(Long id) {
-		publisherRepo.deleteById(id);
-	}
-
-	/**
-	 * Remove a librarian from the database, 
-	 * along with any book loans associated with the librarian
-	 *
-	 * @param id {@link Librarian} object id to be removed
-	 */
-	public void removeLibrarian(Long id) {
-		librarianRepo.deleteById(id);
-	}
-
-	/**
-	 * Remove a library branch from the database, 
-	 * along with any book copies or loans associated with the branch
-	 *
-	 * @param id {@link LibraryBranch} object id to be removed
-	 */
-	public void removeLibraryBranch(Long id) {
-		// remove the library branch from any book copies
-
-		// remove the library branch from any book loans
-
-		// delete the library branch
-		libraryBranchRepo.deleteById(id);
-	}
-
-	/**
-	 * Remove a user from the database, 
-	 * along with any book loans associated with the user
-	 *
-	 * @param id {@link User} object id to be removed
-	 */
-	public void removeUser(Long id) {
-		// remove any book loans associated with the user
-
-		// delete the user
-		userRepo.deleteById(id);
-	}
 }
