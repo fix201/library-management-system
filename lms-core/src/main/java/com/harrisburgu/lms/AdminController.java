@@ -53,7 +53,7 @@ public class AdminController {
 		return readService.getAuthorById(id);
 	}
 	
-	@GetMapping("/book-author/{id}")
+	@GetMapping("/books/authors/{id}")
 	public List<Book> getBooksByAuthorId(@PathVariable("id") Long id) {
 		return readService.getBooksByAuthorId(id);
 	}
@@ -78,7 +78,7 @@ public class AdminController {
 		return readService.getBookById(id);
 	}
 
-	@GetMapping("/book-genre/{id}")
+	@GetMapping("/books/genres/{id}")
 	public List<Book> getBooksByGenreId(@PathVariable("id") Long id) {
 		return readService.getBooksByGenreId(id);
 	}
@@ -123,23 +123,23 @@ public class AdminController {
 		return readService.getUserById(id);
 	}
 
-	@GetMapping("/loan-records")
+	@GetMapping("library/branches/loans")
 	public List<LoanRecord> getAllLoanRecords(){
 		return readService.getAllLoanRecords();
 	}
 	
-	@GetMapping("/loan-records-user/{id}")
+	@GetMapping("/users/{id}/loans")
 	public List<LoanRecord> getLoanRecordsByUser(@PathVariable("id") Long id){
 		return readService.getLoanRecordsForUser(id);
 	}
 
-	@GetMapping("/loan-records-branch/{id}")
+	@GetMapping("/library/branches/{id}/loans")
 	public List<LoanRecord> getLoanRecordsByBranch(@PathVariable("id") Long id){
 		return readService.getLoanRecordsForBranch(id);
 	}
 
-	@GetMapping("/book-copies")
-	public Integer getBookCopiesForBranch(@RequestParam Long branchId, @RequestParam Long bookId){
+	@GetMapping("/library/branches/{branchId}/books/{bookId}/amount")
+	public Integer getBookCopiesForBranch(@PathVariable Long branchId, @PathVariable Long bookId){
 		return readService.getBookCopiesForBranch(branchId,bookId);
 	}
 	
@@ -178,12 +178,12 @@ public class AdminController {
 		return createUpdateService.saveUser(user);
 	}
 
-	@PostMapping("/add-book-to-branch")
+	@PostMapping("library/branch/book")
 	public BookCopy updateBookForBranch(@RequestBody BookCopy bookCopy) {
 		return createUpdateService.addBookToBranch(bookCopy);
 	}
 
-	@PostMapping("/override-loan")
+	@PostMapping("library/branch/loan")
 	public LoanRecord overrideBookLoan(@RequestBody LoanRecord loanRecord) {
 		return createUpdateService.overrideLoanRecord(loanRecord);
 	}
@@ -223,9 +223,9 @@ public class AdminController {
 		deleteService.removeUser(id);
 	}
 	
-	@DeleteMapping("/library/branches/{branchId}/books/{bookId}")
-	public void deleteBookFromBranch(@PathVariable Long branchId, @PathVariable Long bookId) {
-		deleteService.removeBookFromBranch(branchId, bookId);
+	@DeleteMapping("library/branch/book")
+	public void deleteBookFromBranch(@RequestParam BookCopy bookCopy) {
+		deleteService.removeBookFromBranch(bookCopy.getLibraryBranchId(), bookCopy.getBookId());
 	}
 	
 }
