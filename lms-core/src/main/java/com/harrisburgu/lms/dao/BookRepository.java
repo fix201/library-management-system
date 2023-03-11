@@ -13,18 +13,20 @@ import java.util.List;
 @Transactional
 public interface BookRepository extends JpaRepository<Book, Long> {
 	
-	@Query("select b from Book b where b.id in " +
-			"(select ba.bookId from BookAuthor ba where ba.authorId = :authorId)")
+	static String SELECT_BOOK_IN = "select b from Book b where b.id in ";
+	
+	@Query(SELECT_BOOK_IN + "(select ba.bookId from BookAuthor ba where ba.authorId = :authorId)")
 	public List<Book> findBookByAuthorId(@Param("authorId") Long authorId);
 
-	@Query("select b from Book b where b.id in " +
-			"(select ba.bookId from BookAuthor ba where ba.authorId = :publisherId)")
+	@Query(SELECT_BOOK_IN + "(select ba.bookId from BookAuthor ba where ba.authorId = :publisherId)")
 	public List<Book> findBookByPublisherId(@Param("publisherId") Long publisherId);
 
-	@Query("select b from Book b where b.id in " +
-			"(select bg.bookId from BookGenre bg where bg.genreId = :genreId)")
+	@Query(SELECT_BOOK_IN + "(select bg.bookId from BookGenre bg where bg.genreId = :genreId)")
 	List<Book> findBookByGenreId(@Param("genreId") Long genreId);
 
 	@Query("select b from Book b where b.title like %:title%")
 	List<Book> findBookByTitle(@Param("title") String title);
+
+	@Query(SELECT_BOOK_IN + "(select bc.bookId from BookCopy bc where bc.libraryBranchId = :branchId)")
+	List<Book> findAllBookForBranch(@Param("branchId") Long branchId);
 }

@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReadService extends BaseService {
@@ -263,8 +262,7 @@ public class ReadService extends BaseService {
 	 */
 	public List<LoanRecord> getLoanRecordsForUser(Long userId){
 		List<LoanRecord> records = loanRecordRepo.findByUserId(userId);
-		User user = (User) getObjectFromOptional(userRepo.findById(userId));
-		logger.info("Loan Records for user {}: {}", user.getName(), records);
+		logger.info("Loan Records for user {}: {}", userId, records);
 		return records;
 	}
 
@@ -301,4 +299,14 @@ public class ReadService extends BaseService {
 		logger.info("Library Branch with id {} has {} Copies of Book id {}", branchId, records.getNoOfCopies(), bookId);
 		return records.getNoOfCopies();
 	}
+
+	public List<Book> getAllBooksForBranch(LibraryBranch branch) {
+		return bookRepo.findAllBookForBranch(branch.getId());
+	}
+
+	public LoanRecord getloanRecord(LoanRecord loanRecord) {
+		return loanRecordRepo.findByLoanRecordKeys(loanRecord.getUserId(), loanRecord.getLibraryBranchId(), 
+				loanRecord.getBookId(), loanRecord.getLoanDate());
+	}
+
 }

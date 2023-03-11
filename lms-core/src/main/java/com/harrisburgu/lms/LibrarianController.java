@@ -1,13 +1,22 @@
 package com.harrisburgu.lms;
 
 import com.harrisburgu.lms.entity.Book;
+import com.harrisburgu.lms.entity.BookCopy;
+import com.harrisburgu.lms.entity.Librarian;
+import com.harrisburgu.lms.entity.LoanRecord;
 import com.harrisburgu.lms.services.CreateUpdateService;
 import com.harrisburgu.lms.services.DeleteService;
 import com.harrisburgu.lms.services.ReadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -15,7 +24,6 @@ import java.util.List;
 @RequestMapping(value = "/librarian")
 public class LibrarianController {
 
-    private final Logger logger = LoggerFactory.getLogger(LibrarianController.class);
     private ReadService readService;
     private CreateUpdateService createUpdateService;
     private DeleteService deleteService;
@@ -28,30 +36,40 @@ public class LibrarianController {
         this.deleteService = deleteService;
     }
 
-
-    @GetMapping("")
-    public List<Book> getAllBooks() {
-        return readService.getAllBooks();
+    @GetMapping("/{id}")
+    public Librarian getLibrarian(@PathVariable Long id) {
+        return readService.getLibrarianById(id);
     }
 
-    @GetMapping("/{bookId}")
-    public Book getBookById(@PathVariable Long bookId) {
+    @GetMapping("/{id}/books")
+    public List<Book> getAllBooks(@PathVariable Long id) {
+        Librarian librarian = readService.getLibrarianById(id);
+        return readService.getAllBooksForBranch(librarian.getLibraryBranch());
+    }
+
+    @GetMapping("/{id}/books/{bookId}")
+    public Book getBookById(@PathVariable Long id, @PathVariable Long bookId) {
         return readService.getBookById(bookId);
     }
 
-    @PostMapping("")
-    public void addBook(@RequestBody Book book) {
-        createUpdateService.saveBook(book);
+    @PostMapping("/{id}/book")
+    public Book addBook(@PathVariable Long id, @RequestBody Book book) {
+        Librarian librarian = readService.getLibrarianById(id);
+        book = createUpdateService.saveBook(book);
+        createUpdateService.addBookToBranch(new BookCopy( librarian.getId(), book.getId(),1));
+        return book;
     }
 
-    @PutMapping("/{bookId}")
-    public void updateBook(@PathVariable Long bookId, @RequestBody Book book) {
-        book.setId(bookId);
-        createUpdateService.saveBook(book);
+    @DeleteMapping("/{id}/book")
+    public void removeBook(@PathVariable Long id, @RequestParam Long bookId) {
+        Librarian librarian = readService.getLibrarianById(id);
+        deleteService.removeBookFromBranch(librarian.getLibraryBranch().getId(), bookId);
     }
 
-    @DeleteMapping("/{bookId}")
-    public void removeBook(@PathVariable Long bookId) {
-        deleteService.removeBook(bookId);
+    @PostMapping("/{id}/loan")
+    public LoanRecord overrideBookLoan(@PathVariable Long id, @RequestBody LoanRecord loanRecord) {
+        Librarian librarian = readService.getLibrarianById(id);
+        loanRecord.setLibraryBranchId(librarian.getId());
+        return createUpdateService.overrideLoanRecord(loanRecord);
     }
 }
